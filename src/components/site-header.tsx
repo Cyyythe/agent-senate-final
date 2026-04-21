@@ -8,10 +8,6 @@ import { cn } from "@/lib/utils";
 const NAV_ITEMS = [
   { href: "/", label: "Main Page" },
   { href: "/topics", label: "Topics" },
-  { href: "/explorer", label: "Question Explorer" },
-  { href: "/visualizations", label: "Visualizations" },
-  { href: "/methodology", label: "Methodology" },
-  { href: "/about", label: "About" },
 ];
 
 export function SiteHeader() {
@@ -19,12 +15,12 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--line)] bg-[color:color-mix(in_srgb,var(--surface)_92%,white)] backdrop-blur supports-[backdrop-filter]:bg-[color:color-mix(in_srgb,var(--surface)_84%,white)]">
-      <div className="mx-auto flex w-full max-w-[1200px] items-center gap-4 px-4 py-3 md:px-6">
+      <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-4 px-4 py-3 md:px-6">
         <Link href="/" className="flex items-center gap-2 font-serif text-lg font-bold">
           <Landmark className="h-5 w-5 text-[var(--accent-strong)]" />
           Senate Insight
         </Link>
-        <nav className="ml-auto flex flex-wrap items-center gap-1">
+        <nav className="flex items-center gap-1 rounded-md border border-[var(--line)] bg-[var(--card)] p-1">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}

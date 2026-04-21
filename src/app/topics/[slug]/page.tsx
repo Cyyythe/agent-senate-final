@@ -1,9 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { use, useMemo } from "react";
+import { use } from "react";
 import { ArrowLeft } from "lucide-react";
-import { useManifest, useTopicConversations, useTopicQuestions } from "@/hooks/use-study-data";
+import {
+  useManifest,
+  useOverviewMetrics,
+  useTopicConversations,
+  useTopicQuestions,
+} from "@/hooks/use-study-data";
 import { CONDITION_LABELS } from "@/lib/constants";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -15,6 +20,19 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { StateBox } from "@/components/state-box";
+import { ConditionBarChart } from "@/components/charts/condition-bar-chart";
+import { RoundsCompareChart } from "@/components/charts/rounds-compare-chart";
+
+function StepHeader({ step, title }: { step: number; title: string }) {
+  return (
+    <div className="mb-3 flex items-center gap-3">
+      <Badge variant="accent" className="min-w-16 justify-center">
+        Step {step}
+      </Badge>
+      <h2 className="text-2xl">{title}</h2>
+    </div>
+  );
+}
 
 export default function TopicDetailPage({
   params,
@@ -23,35 +41,51 @@ export default function TopicDetailPage({
 }) {
   const { slug } = use(params);
   const { data: manifest, isLoading: isManifestLoading, error: manifestError } = useManifest();
-  const { data: questions, isLoading: isQuestionsLoading } = useTopicQuestions(slug);
-  const { data: conversations, isLoading: isConversationsLoading } =
+  const { data: questions, isLoading: isQuestionsLoading, error: questionsError } =
+    useTopicQuestions(slug);
+  const { data: conversations, isLoading: isConversationsLoading, error: conversationsError } =
     useTopicConversations(slug);
+  const { data: metrics, isLoading: isMetricsLoading, error: metricsError } = useOverviewMetrics();
 
-  const topic = useMemo(
-    () => manifest?.topics.find((item) => item.slug === slug) ?? null,
-    [manifest, slug]
-  );
-
-  if (isManifestLoading || isQuestionsLoading || isConversationsLoading) {
-    return <StateBox title="Loading topic..." message="Reading prompts and sample conversations." />;
-  }
-
-  if (!topic || manifestError) {
+  if (isManifestLoading || isQuestionsLoading || isConversationsLoading || isMetricsLoading) {
     return (
       <StateBox
-        title="Topic not found"
-        message={manifestError ?? `No topic metadata found for "${slug}".`}
+        title="Loading topic..."
+        message="Reading prompts, conversation snapshots, and chart metrics."
       />
     );
   }
 
-  const sampleQuestions = (questions ?? []).slice(0, 5);
-  const sampleConversation = (conversations ?? [])[0];
+  if (!manifest || !questions || !conversations || !metrics) {
+    return (
+      <StateBox
+        title="Topic data unavailable"
+        message={
+          manifestError ??
+          questionsError ??
+          conversationsError ??
+          metricsError ??
+          "Could not load topic data."
+        }
+      />
+    );
+  }
+
+  const topic = manifest.topics.find((item) => item.slug === slug);
+  if (!topic) {
+    return (
+      <StateBox title="Topic not found" message={`No topic metadata found for "${slug}".`} />
+    );
+  }
+
+  const topicMetrics = metrics.filter((metric) => metric.topicSlug === slug);
+  const sampleQuestions = questions.slice(0, 5);
+  const sampleConversation = conversations[0];
 
   return (
     <div className="grid gap-5">
-      <section className="senate-panel colonnade p-6">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+      <section className="senate-panel colonnade p-6 md:p-7">
+        <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="grid gap-2">
             <Badge variant="accent" className="w-fit">
               {topic.spectrum}
@@ -71,76 +105,102 @@ export default function TopicDetailPage({
         </div>
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-[1fr_.95fr]">
-        <Card>
-          <CardHeader>
-            <CardTitle>Representative Questions</CardTitle>
-            <CardDescription>
-              Questions are designed so each Yes/No/Maybe response has a stable interpretation.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            {sampleQuestions.map((question, index) => (
-              <div key={question.id} className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-3">
-                <p className="font-medium">
-                  {index + 1}. {question.prompt}
-                </p>
-                <div className="mt-2 grid gap-1 text-xs text-[var(--muted-foreground)] sm:grid-cols-2">
-                  {Object.entries(question.conditionSummary).map(([key, summary]) => (
-                    <span key={key}>
-                      {CONDITION_LABELS[key as keyof typeof CONDITION_LABELS]}:{" "}
-                      <strong className="text-[var(--foreground)]">{summary.outcome}</strong>
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+      <section className="senate-panel p-5 md:p-6">
+        <StepHeader step={1} title="Topic Framing" />
+        <p className="text-base text-[var(--muted-foreground)]">
+          This section defines what this topic is trying to capture and what interpretation users
+          should assign to a Yes response. All prompts in this topic are aligned to the same
+          directional meaning so comparisons across conditions remain interpretable.
+        </p>
+      </section>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Sample Debate Trace</CardTitle>
-            <CardDescription>
-              Story-style view to keep question interpretation central to the user flow.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-3 text-sm">
-            {sampleConversation ? (
-              <>
-                <p className="rounded-md bg-[var(--card-muted)] p-3 font-medium">
-                  Prompt:{" "}
-                  {sampleQuestions.find((item) => item.id === sampleConversation.questionId)?.prompt}
-                </p>
-                <div className="flex flex-wrap gap-1">
-                  {sampleConversation.roleAssignments.map((assignment) => (
-                    <Badge key={assignment.agent} variant="subtle">
-                      {assignment.agent}: {assignment.role}
-                    </Badge>
-                  ))}
-                </div>
-                <div className="grid gap-2">
-                  {sampleConversation.turns.map((turn, index) => (
-                    <div key={`${turn.speaker}-${index}`} className="rounded-md border border-[var(--line)] p-3">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted-foreground)]">
-                        {turn.speaker}
-                      </p>
-                      <p>{turn.text}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-3">
-                  Final consensus: <strong>{sampleConversation.finalConsensus}</strong> | Rounds:{" "}
-                  <strong>{sampleConversation.roundsCompleted}</strong>
-                </div>
-              </>
-            ) : (
-              <p className="text-[var(--muted-foreground)]">
-                Conversation placeholder missing for this topic.
-              </p>
-            )}
-          </CardContent>
-        </Card>
+      <section className="senate-panel p-5 md:p-6">
+        <StepHeader step={2} title="Representative Questions" />
+        <div className="grid gap-3">
+          {sampleQuestions.map((question, index) => (
+            <Card key={question.id} className="bg-[var(--surface)]">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg">
+                  {index + 1}. {question.prompt}
+                </CardTitle>
+                <CardDescription>
+                  Condition outcomes for this exact prompt in the current demo dataset.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="grid gap-1 text-sm sm:grid-cols-2">
+                {Object.entries(question.conditionSummary).map(([key, summary]) => (
+                  <div
+                    key={key}
+                    className="rounded border border-[var(--line)] bg-[var(--card-muted)] px-2 py-1.5"
+                  >
+                    <span className="text-[var(--muted-foreground)]">
+                      {CONDITION_LABELS[key as keyof typeof CONDITION_LABELS]}:
+                    </span>{" "}
+                    <strong>{summary.outcome}</strong>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section className="senate-panel p-5 md:p-6">
+        <StepHeader step={3} title="Sample Debate Story" />
+        {sampleConversation ? (
+          <div className="grid gap-3">
+            <Card className="bg-[var(--surface)]">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base">Prompt</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {
+                  sampleQuestions.find((item) => item.id === sampleConversation.questionId)
+                    ?.prompt
+                }
+              </CardContent>
+            </Card>
+            <div className="flex flex-wrap gap-1.5">
+              {sampleConversation.roleAssignments.map((assignment) => (
+                <Badge key={assignment.agent} variant="subtle">
+                  {assignment.agent}: {assignment.role}
+                </Badge>
+              ))}
+            </div>
+            <div className="grid gap-2">
+              {sampleConversation.turns.map((turn, index) => (
+                <Card key={`${turn.speaker}-${index}`} className="bg-[var(--surface)]">
+                  <CardHeader className="pb-1">
+                    <CardTitle className="text-xs tracking-wide text-[var(--muted-foreground)] uppercase">
+                      {turn.speaker}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pt-0">{turn.text}</CardContent>
+                </Card>
+              ))}
+            </div>
+            <Card className="bg-[var(--surface)]">
+              <CardContent className="pt-5 text-sm">
+                Final consensus: <strong>{sampleConversation.finalConsensus}</strong> | Rounds:{" "}
+                <strong>{sampleConversation.roundsCompleted}</strong>
+              </CardContent>
+            </Card>
+          </div>
+        ) : (
+          <p className="text-[var(--muted-foreground)]">No sample conversation found.</p>
+        )}
+      </section>
+
+      <section className="senate-panel p-5 md:p-6">
+        <StepHeader step={4} title="Visualization Snapshot" />
+        <p className="mb-4 text-sm text-[var(--muted-foreground)]">
+          These charts summarize this topic only. In later iterations, these can be replaced by
+          full production visualizations without changing this story layout.
+        </p>
+        <div className="grid gap-4 xl:grid-cols-2">
+          <ConditionBarChart metrics={topicMetrics} title="Outcome Direction by Condition" />
+          <RoundsCompareChart metrics={topicMetrics} />
+        </div>
       </section>
     </div>
   );

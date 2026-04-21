@@ -30,6 +30,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-cormorant), serif;
   background: var(--background);
+  line-height: 1.45;
 }
 
 .marble-surface {
@@ -80,6 +81,7 @@ h4 {
 
 .colonnade {
   position: relative;
+  overflow: visible;
 }
 
 .colonnade::before,
@@ -101,6 +103,17 @@ h4 {
 
 .colonnade::after {
   right: -18px;
+}
+
+@media (max-width: 768px) {
+  .colonnade::before,
+  .colonnade::after {
+    display: none;
+  }
+}
+
+p {
+  text-wrap: pretty;
 }
 
 select,
