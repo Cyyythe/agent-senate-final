@@ -1,0 +1,290 @@
+{
+  "topicSlug": "institutional-confidence",
+  "items": [
+    {
+      "id": "institutional-confidence-1",
+      "topicSlug": "institutional-confidence",
+      "prompt": "Should people generally trust schools to make fair decisions about student discipline?",
+      "tags": [
+        "Institutions & Legitimacy",
+        "Institutional Confidence"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "No",
+          "yesVotes": 1,
+          "noVotes": 2
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 2
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 1
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 1
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "No",
+          "Grok": "Maybe"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "No",
+          "Grok": "Maybe"
+        },
+        "debate_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        }
+      }
+    },
+    {
+      "id": "institutional-confidence-2",
+      "topicSlug": "institutional-confidence",
+      "prompt": "Are employers usually justified in monitoring activity on company-owned devices?",
+      "tags": [
+        "Institutions & Legitimacy",
+        "Institutional Confidence"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 1,
+          "noVotes": 2
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Maybe",
+          "Gemini": "No",
+          "Grok": "No"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "debate_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "No",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        }
+      }
+    },
+    {
+      "id": "institutional-confidence-3",
+      "topicSlug": "institutional-confidence",
+      "prompt": "Should the public generally assume government data programs are designed in good faith?",
+      "tags": [
+        "Institutions & Legitimacy",
+        "Institutional Confidence"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 1
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "No",
+          "yesVotes": 1,
+          "noVotes": 2
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "single_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Maybe",
+          "Gemini": "No",
+          "Grok": "Maybe"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "No",
+          "Grok": "Maybe"
+        }
+      }
+    },
+    {
+      "id": "institutional-confidence-4",
+      "topicSlug": "institutional-confidence",
+      "prompt": "Should large online platforms generally be trusted to enforce moderation rules responsibly?",
+      "tags": [
+        "Institutions & Legitimacy",
+        "Institutional Confidence"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 1
+        },
+        "single_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 1
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 1,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "No"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "debate_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        }
+      }
+    },
+    {
+      "id": "institutional-confidence-5",
+      "topicSlug": "institutional-confidence",
+      "prompt": "Should hospitals generally be trusted to adopt new internal policies without outside review?",
+      "tags": [
+        "Institutions & Legitimacy",
+        "Institutional Confidence"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 2
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "Maybe",
+          "yesVotes": 2,
+          "noVotes": 2
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "Maybe",
+          "Grok": "No"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "debate_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "No",
+          "Grok": "No"
+        }
+      }
+    }
+  ]
+}

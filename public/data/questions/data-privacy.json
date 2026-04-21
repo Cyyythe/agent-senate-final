@@ -1,0 +1,290 @@
+{
+  "topicSlug": "data-privacy",
+  "items": [
+    {
+      "id": "data-privacy-1",
+      "topicSlug": "data-privacy",
+      "prompt": "Should phones keep stronger privacy settings on by default even if setup becomes less convenient?",
+      "tags": [
+        "Technology & Privacy",
+        "Data Privacy"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "single_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "debate_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        }
+      }
+    },
+    {
+      "id": "data-privacy-2",
+      "topicSlug": "data-privacy",
+      "prompt": "Should apps be restricted from collecting extra user data even when it makes the service easier to use?",
+      "tags": [
+        "Technology & Privacy",
+        "Data Privacy"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "Yes",
+          "yesVotes": 1,
+          "noVotes": 0
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "Maybe",
+          "yesVotes": 2,
+          "noVotes": 2
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Maybe"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Maybe"
+        },
+        "debate_role": {
+          "ChatGPT": "No",
+          "Claude": "No",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        }
+      }
+    },
+    {
+      "id": "data-privacy-3",
+      "topicSlug": "data-privacy",
+      "prompt": "Should biometric login be limited when it increases privacy risks, even if it speeds up access?",
+      "tags": [
+        "Technology & Privacy",
+        "Data Privacy"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 1,
+          "noVotes": 2
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 0
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "No",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Maybe",
+          "Gemini": "No",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        }
+      }
+    },
+    {
+      "id": "data-privacy-4",
+      "topicSlug": "data-privacy",
+      "prompt": "Should workplaces avoid low-friction tracking tools when they collect detailed employee behavior data?",
+      "tags": [
+        "Technology & Privacy",
+        "Data Privacy"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 2
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 1,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 1
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Maybe",
+          "Gemini": "No",
+          "Grok": "No"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Maybe"
+        },
+        "debate_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        }
+      }
+    },
+    {
+      "id": "data-privacy-5",
+      "topicSlug": "data-privacy",
+      "prompt": "Should school-issued devices use stricter privacy protections even if they become harder to manage?",
+      "tags": [
+        "Technology & Privacy",
+        "Data Privacy"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 1,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "Maybe",
+          "yesVotes": 2,
+          "noVotes": 2
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 4,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 1
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Maybe",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "No",
+          "Grok": "Yes"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        }
+      }
+    }
+  ]
+}

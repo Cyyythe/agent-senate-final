@@ -1,0 +1,250 @@
+{
+  "topicSlug": "immediate-support",
+  "items": [
+    {
+      "id": "immediate-support-1-conversation-1",
+      "topicSlug": "immediate-support",
+      "questionId": "immediate-support-1",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should governments lower consumer costs now even if doing so increases long-term economic risk?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 3
+    },
+    {
+      "id": "immediate-support-2-conversation-1",
+      "topicSlug": "immediate-support",
+      "questionId": "immediate-support-2",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should companies avoid layoffs now even if it weakens long-term financial stability?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 1
+    },
+    {
+      "id": "immediate-support-3-conversation-1",
+      "topicSlug": "immediate-support",
+      "questionId": "immediate-support-3",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should public programs expand immediate aid even if future budgets become harder to manage?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 2
+    },
+    {
+      "id": "immediate-support-4-conversation-1",
+      "topicSlug": "immediate-support",
+      "questionId": "immediate-support-4",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should climate policy focus first on lowering current household energy costs even if long-term transition slows?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 3
+    },
+    {
+      "id": "immediate-support-5-conversation-1",
+      "topicSlug": "immediate-support",
+      "questionId": "immediate-support-5",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should central banks act quickly to reduce unemployment even if inflation risks remain?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 1
+    }
+  ]
+}

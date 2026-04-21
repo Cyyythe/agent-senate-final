@@ -1,0 +1,250 @@
+{
+  "topicSlug": "rule-consistency",
+  "items": [
+    {
+      "id": "rule-consistency-1-conversation-1",
+      "topicSlug": "rule-consistency",
+      "questionId": "rule-consistency-1",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should honesty rules generally be followed even when the truth may hurt someone’s feelings?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 1
+    },
+    {
+      "id": "rule-consistency-2-conversation-1",
+      "topicSlug": "rule-consistency",
+      "questionId": "rule-consistency-2",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should people generally keep promises even when circumstances become difficult?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "No",
+      "roundsCompleted": 1
+    },
+    {
+      "id": "rule-consistency-3-conversation-1",
+      "topicSlug": "rule-consistency",
+      "questionId": "rule-consistency-3",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should privacy rules generally remain in force even during emergencies?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 2
+    },
+    {
+      "id": "rule-consistency-4-conversation-1",
+      "topicSlug": "rule-consistency",
+      "questionId": "rule-consistency-4",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should loyalty standards generally apply even when a friend is clearly in the wrong?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 2
+    },
+    {
+      "id": "rule-consistency-5-conversation-1",
+      "topicSlug": "rule-consistency",
+      "questionId": "rule-consistency-5",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should fairness rules be applied consistently even when a case seems emotionally unusual?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 3
+    }
+  ]
+}

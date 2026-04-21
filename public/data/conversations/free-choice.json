@@ -1,0 +1,250 @@
+{
+  "topicSlug": "free-choice",
+  "items": [
+    {
+      "id": "free-choice-1-conversation-1",
+      "topicSlug": "free-choice",
+      "questionId": "free-choice-1",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should adults be allowed to use highly addictive digital products if they choose to do so?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "No",
+      "roundsCompleted": 2
+    },
+    {
+      "id": "free-choice-2-conversation-1",
+      "topicSlug": "free-choice",
+      "questionId": "free-choice-2",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should employees be free to reject workplace wellness rules that limit unhealthy behavior?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 1
+    },
+    {
+      "id": "free-choice-3-conversation-1",
+      "topicSlug": "free-choice",
+      "questionId": "free-choice-3",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should consumers be allowed to buy risky products if the risks are clearly disclosed?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Maybe",
+      "roundsCompleted": 3
+    },
+    {
+      "id": "free-choice-4-conversation-1",
+      "topicSlug": "free-choice",
+      "questionId": "free-choice-4",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should students be free to use distracting apps even when schools believe restrictions would help them focus?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "No",
+      "roundsCompleted": 1
+    },
+    {
+      "id": "free-choice-5-conversation-1",
+      "topicSlug": "free-choice",
+      "questionId": "free-choice-5",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should people be allowed to ignore recommended health behaviors when the main harm falls on themselves?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 3
+    }
+  ]
+}

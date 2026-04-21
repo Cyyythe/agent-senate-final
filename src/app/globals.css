@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f6f0e5;
+  --foreground: #23160a;
+  --surface: #fbf7ef;
+  --card: #fffaf2;
+  --card-muted: #f1e8d8;
+  --card-muted-hover: #e5d8c2;
+  --line: #d7c8ad;
+  --line-subtle: #e8dcc9;
+  --muted-foreground: #6c5a43;
+  --accent: #8f6f47;
+  --accent-strong: #6f5333;
+  --accent-foreground: #f9f2e5;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-cormorant);
+  --font-serif: var(--font-cinzel);
+}
+
+* {
+  border-color: var(--line);
+}
+
+body {
+  color: var(--foreground);
+  font-family: var(--font-cormorant), serif;
+  background: var(--background);
+}
+
+.marble-surface {
+  position: relative;
+  background:
+    radial-gradient(
+      1200px 500px at -10% -10%,
+      rgba(170, 146, 108, 0.25) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      1200px 500px at 110% 10%,
+      rgba(108, 92, 69, 0.14) 0%,
+      transparent 50%
+    ),
+    linear-gradient(180deg, #f8f2e8 0%, #f2e9d8 100%);
+}
+
+.marble-surface::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.14;
+  background-image:
+    linear-gradient(115deg, transparent 40%, rgba(85, 63, 38, 0.14) 50%, transparent 60%),
+    linear-gradient(65deg, transparent 38%, rgba(84, 64, 40, 0.12) 51%, transparent 64%);
+  background-size: 680px 680px, 820px 820px;
+  background-position: 0 0, 150px 80px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-cinzel), serif;
+  letter-spacing: 0.01em;
+}
+
+.senate-panel {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 252, 245, 0.96), rgba(248, 240, 227, 0.96));
+  box-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.8) inset,
+    0 8px 26px rgba(60, 39, 18, 0.08);
+}
+
+.colonnade {
+  position: relative;
+}
+
+.colonnade::before,
+.colonnade::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f5e8d3 0%, #e8d6ba 100%);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.45) inset;
+}
+
+.colonnade::before {
+  left: -18px;
+}
+
+.colonnade::after {
+  right: -18px;
+}
+
+select,
+input,
+textarea,
+button {
+  font-family: var(--font-cormorant), serif;
+}

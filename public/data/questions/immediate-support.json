@@ -1,0 +1,290 @@
+{
+  "topicSlug": "immediate-support",
+  "items": [
+    {
+      "id": "immediate-support-1",
+      "topicSlug": "immediate-support",
+      "prompt": "Should governments lower consumer costs now even if doing so increases long-term economic risk?",
+      "tags": [
+        "Economics & Time Horizon",
+        "Immediate Support"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        },
+        "single_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 1
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 0
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "No",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        }
+      }
+    },
+    {
+      "id": "immediate-support-2",
+      "topicSlug": "immediate-support",
+      "prompt": "Should companies avoid layoffs now even if it weakens long-term financial stability?",
+      "tags": [
+        "Economics & Time Horizon",
+        "Immediate Support"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 4,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 0
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        }
+      }
+    },
+    {
+      "id": "immediate-support-3",
+      "topicSlug": "immediate-support",
+      "prompt": "Should public programs expand immediate aid even if future budgets become harder to manage?",
+      "tags": [
+        "Economics & Time Horizon",
+        "Immediate Support"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "Maybe",
+          "yesVotes": 1,
+          "noVotes": 1
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "No"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        }
+      }
+    },
+    {
+      "id": "immediate-support-4",
+      "topicSlug": "immediate-support",
+      "prompt": "Should climate policy focus first on lowering current household energy costs even if long-term transition slows?",
+      "tags": [
+        "Economics & Time Horizon",
+        "Immediate Support"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        },
+        "single_role": {
+          "outcome": "Maybe",
+          "yesVotes": 1,
+          "noVotes": 1
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 1,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "debate_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Maybe"
+        }
+      }
+    },
+    {
+      "id": "immediate-support-5",
+      "topicSlug": "immediate-support",
+      "prompt": "Should central banks act quickly to reduce unemployment even if inflation risks remain?",
+      "tags": [
+        "Economics & Time Horizon",
+        "Immediate Support"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "debate_no_role": {
+          "outcome": "Maybe",
+          "yesVotes": 1,
+          "noVotes": 1
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "debate_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        }
+      }
+    }
+  ]
+}

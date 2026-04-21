@@ -1,0 +1,290 @@
+{
+  "topicSlug": "fast-deployment",
+  "items": [
+    {
+      "id": "fast-deployment-1",
+      "topicSlug": "fast-deployment",
+      "prompt": "Should companies release powerful AI tools before all major risks are fully understood?",
+      "tags": [
+        "Innovation & Risk",
+        "Fast Deployment"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 2
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 2
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 3
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "No",
+          "Grok": "Maybe"
+        },
+        "single_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "No",
+          "Gemini": "Maybe",
+          "Grok": "No"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "No",
+          "Claude": "No",
+          "Gemini": "Maybe",
+          "Grok": "No"
+        }
+      }
+    },
+    {
+      "id": "fast-deployment-2",
+      "topicSlug": "fast-deployment",
+      "prompt": "Should new environmental technologies be deployed quickly even when long-term side effects remain uncertain?",
+      "tags": [
+        "Innovation & Risk",
+        "Fast Deployment"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 3
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 3
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        },
+        "debate_role": {
+          "outcome": "No",
+          "yesVotes": 1,
+          "noVotes": 2
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "No",
+          "Claude": "No",
+          "Gemini": "Maybe",
+          "Grok": "No"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "No",
+          "Grok": "No"
+        },
+        "debate_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "No"
+        }
+      }
+    },
+    {
+      "id": "fast-deployment-3",
+      "topicSlug": "fast-deployment",
+      "prompt": "Should automation be adopted rapidly when it improves efficiency, even if job impacts are unclear?",
+      "tags": [
+        "Innovation & Risk",
+        "Fast Deployment"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Maybe",
+          "yesVotes": 2,
+          "noVotes": 2
+        },
+        "single_role": {
+          "outcome": "Maybe",
+          "yesVotes": 2,
+          "noVotes": 2
+        },
+        "debate_no_role": {
+          "outcome": "Maybe",
+          "yesVotes": 1,
+          "noVotes": 1
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "No",
+          "Claude": "No",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "No"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "No"
+        },
+        "debate_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        }
+      }
+    },
+    {
+      "id": "fast-deployment-4",
+      "topicSlug": "fast-deployment",
+      "prompt": "Should schools begin using AI tutoring tools before independent evidence of long-term benefit is complete?",
+      "tags": [
+        "Innovation & Risk",
+        "Fast Deployment"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Maybe",
+          "yesVotes": 1,
+          "noVotes": 1
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 2
+        },
+        "debate_no_role": {
+          "outcome": "Maybe",
+          "yesVotes": 1,
+          "noVotes": 1
+        },
+        "debate_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 4
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Maybe",
+          "Gemini": "No",
+          "Grok": "No"
+        },
+        "debate_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "No",
+          "Claude": "No",
+          "Gemini": "No",
+          "Grok": "No"
+        }
+      }
+    },
+    {
+      "id": "fast-deployment-5",
+      "topicSlug": "fast-deployment",
+      "prompt": "Should hospitals adopt promising new diagnostic systems before bias and safety testing is fully mature?",
+      "tags": [
+        "Innovation & Risk",
+        "Fast Deployment"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "No",
+          "yesVotes": 1,
+          "noVotes": 2
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 2
+        },
+        "debate_no_role": {
+          "outcome": "Maybe",
+          "yesVotes": 2,
+          "noVotes": 2
+        },
+        "debate_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 3
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "No",
+          "Gemini": "No",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Maybe",
+          "Gemini": "No",
+          "Grok": "No"
+        },
+        "debate_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "No"
+        },
+        "debate_role": {
+          "ChatGPT": "No",
+          "Claude": "No",
+          "Gemini": "No",
+          "Grok": "Maybe"
+        }
+      }
+    }
+  ]
+}

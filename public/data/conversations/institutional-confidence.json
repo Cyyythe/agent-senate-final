@@ -1,0 +1,250 @@
+{
+  "topicSlug": "institutional-confidence",
+  "items": [
+    {
+      "id": "institutional-confidence-1-conversation-1",
+      "topicSlug": "institutional-confidence",
+      "questionId": "institutional-confidence-1",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should people generally trust schools to make fair decisions about student discipline?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 3
+    },
+    {
+      "id": "institutional-confidence-2-conversation-1",
+      "topicSlug": "institutional-confidence",
+      "questionId": "institutional-confidence-2",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Are employers usually justified in monitoring activity on company-owned devices?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 3
+    },
+    {
+      "id": "institutional-confidence-3-conversation-1",
+      "topicSlug": "institutional-confidence",
+      "questionId": "institutional-confidence-3",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should the public generally assume government data programs are designed in good faith?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "No",
+      "roundsCompleted": 2
+    },
+    {
+      "id": "institutional-confidence-4-conversation-1",
+      "topicSlug": "institutional-confidence",
+      "questionId": "institutional-confidence-4",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should large online platforms generally be trusted to enforce moderation rules responsibly?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 3
+    },
+    {
+      "id": "institutional-confidence-5-conversation-1",
+      "topicSlug": "institutional-confidence",
+      "questionId": "institutional-confidence-5",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should hospitals generally be trusted to adopt new internal policies without outside review?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Maybe",
+      "roundsCompleted": 2
+    }
+  ]
+}

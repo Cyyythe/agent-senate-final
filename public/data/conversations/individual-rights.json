@@ -1,0 +1,250 @@
+{
+  "topicSlug": "individual-rights",
+  "items": [
+    {
+      "id": "individual-rights-1-conversation-1",
+      "topicSlug": "individual-rights",
+      "questionId": "individual-rights-1",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should personal privacy be protected even when violating it could help many people?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "No",
+      "roundsCompleted": 3
+    },
+    {
+      "id": "individual-rights-2-conversation-1",
+      "topicSlug": "individual-rights",
+      "questionId": "individual-rights-2",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should free expression be protected even when restricting it might reduce social harm?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 3
+    },
+    {
+      "id": "individual-rights-3-conversation-1",
+      "topicSlug": "individual-rights",
+      "questionId": "individual-rights-3",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should equal treatment be preserved even when unequal allocation could save more lives?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 1
+    },
+    {
+      "id": "individual-rights-4-conversation-1",
+      "topicSlug": "individual-rights",
+      "questionId": "individual-rights-4",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should due process be preserved even when bypassing it could speed up punishment of dangerous people?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 1
+    },
+    {
+      "id": "individual-rights-5-conversation-1",
+      "topicSlug": "individual-rights",
+      "questionId": "individual-rights-5",
+      "runMode": "debate",
+      "roleMode": "role",
+      "roleAssignments": [
+        {
+          "agent": "ChatGPT",
+          "role": "Contrarian"
+        },
+        {
+          "agent": "Claude",
+          "role": "Optimist"
+        },
+        {
+          "agent": "Gemini",
+          "role": "Utilitarian"
+        },
+        {
+          "agent": "Grok",
+          "role": "Absolutist"
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "Moderator",
+          "text": "Opening prompt: Should workers keep control over personal data even when sharing it could improve company performance?"
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "I challenge the default intuition and want stronger evidence before agreement."
+        },
+        {
+          "speaker": "Claude",
+          "text": "A constructive framing suggests a pragmatic path that balances outcomes and norms."
+        },
+        {
+          "speaker": "Gemini",
+          "text": "From a utility view, the larger population effect matters more than edge cases."
+        },
+        {
+          "speaker": "Grok",
+          "text": "I prioritize rule consistency and clear boundaries unless there is explicit override."
+        }
+      ],
+      "finalConsensus": "Yes",
+      "roundsCompleted": 2
+    }
+  ]
+}

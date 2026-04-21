@@ -1,0 +1,290 @@
+{
+  "topicSlug": "free-choice",
+  "items": [
+    {
+      "id": "free-choice-1",
+      "topicSlug": "free-choice",
+      "prompt": "Should adults be allowed to use highly addictive digital products if they choose to do so?",
+      "tags": [
+        "Autonomy & Protection",
+        "Free Choice"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 1
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 1
+        },
+        "debate_role": {
+          "outcome": "No",
+          "yesVotes": 1,
+          "noVotes": 2
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "No",
+          "Gemini": "Maybe",
+          "Grok": "Maybe"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "No"
+        },
+        "debate_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "No",
+          "Grok": "Yes"
+        }
+      }
+    },
+    {
+      "id": "free-choice-2",
+      "topicSlug": "free-choice",
+      "prompt": "Should employees be free to reject workplace wellness rules that limit unhealthy behavior?",
+      "tags": [
+        "Autonomy & Protection",
+        "Free Choice"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 1,
+          "noVotes": 3
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "No",
+          "Gemini": "Yes",
+          "Grok": "No"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "No",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "No",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        }
+      }
+    },
+    {
+      "id": "free-choice-3",
+      "topicSlug": "free-choice",
+      "prompt": "Should consumers be allowed to buy risky products if the risks are clearly disclosed?",
+      "tags": [
+        "Autonomy & Protection",
+        "Free Choice"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 4,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 2
+        },
+        "debate_no_role": {
+          "outcome": "Maybe",
+          "yesVotes": 2,
+          "noVotes": 2
+        },
+        "debate_role": {
+          "outcome": "Maybe",
+          "yesVotes": 2,
+          "noVotes": 2
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "No",
+          "Grok": "Maybe"
+        },
+        "debate_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "No"
+        },
+        "debate_role": {
+          "ChatGPT": "Yes",
+          "Claude": "No",
+          "Gemini": "Yes",
+          "Grok": "No"
+        }
+      }
+    },
+    {
+      "id": "free-choice-4",
+      "topicSlug": "free-choice",
+      "prompt": "Should students be free to use distracting apps even when schools believe restrictions would help them focus?",
+      "tags": [
+        "Autonomy & Protection",
+        "Free Choice"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 1,
+          "noVotes": 2
+        },
+        "debate_no_role": {
+          "outcome": "Maybe",
+          "yesVotes": 1,
+          "noVotes": 1
+        },
+        "debate_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 1
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "No"
+        },
+        "debate_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Maybe"
+        },
+        "debate_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "Maybe",
+          "Grok": "Maybe"
+        }
+      }
+    },
+    {
+      "id": "free-choice-5",
+      "topicSlug": "free-choice",
+      "prompt": "Should people be allowed to ignore recommended health behaviors when the main harm falls on themselves?",
+      "tags": [
+        "Autonomy & Protection",
+        "Free Choice"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "No",
+          "yesVotes": 1,
+          "noVotes": 2
+        },
+        "single_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 1
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "No"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "No"
+        },
+        "debate_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        }
+      }
+    }
+  ]
+}

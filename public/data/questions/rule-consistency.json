@@ -1,0 +1,290 @@
+{
+  "topicSlug": "rule-consistency",
+  "items": [
+    {
+      "id": "rule-consistency-1",
+      "topicSlug": "rule-consistency",
+      "prompt": "Should honesty rules generally be followed even when the truth may hurt someone’s feelings?",
+      "tags": [
+        "Ethics & Norms",
+        "Rule Consistency"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "No",
+          "yesVotes": 1,
+          "noVotes": 3
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 2
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 1,
+          "noVotes": 0
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "No",
+          "Grok": "No"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "Maybe",
+          "Grok": "No"
+        },
+        "debate_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Maybe"
+        }
+      }
+    },
+    {
+      "id": "rule-consistency-2",
+      "topicSlug": "rule-consistency",
+      "prompt": "Should people generally keep promises even when circumstances become difficult?",
+      "tags": [
+        "Ethics & Norms",
+        "Rule Consistency"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "No",
+          "yesVotes": 1,
+          "noVotes": 2
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "No",
+          "Grok": "Maybe"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "debate_role": {
+          "ChatGPT": "Yes",
+          "Claude": "No",
+          "Gemini": "Maybe",
+          "Grok": "No"
+        }
+      }
+    },
+    {
+      "id": "rule-consistency-3",
+      "topicSlug": "rule-consistency",
+      "prompt": "Should privacy rules generally remain in force even during emergencies?",
+      "tags": [
+        "Ethics & Norms",
+        "Rule Consistency"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Maybe",
+          "yesVotes": 1,
+          "noVotes": 1
+        },
+        "single_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "single_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "debate_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Maybe"
+        }
+      }
+    },
+    {
+      "id": "rule-consistency-4",
+      "topicSlug": "rule-consistency",
+      "prompt": "Should loyalty standards generally apply even when a friend is clearly in the wrong?",
+      "tags": [
+        "Ethics & Norms",
+        "Rule Consistency"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        },
+        "single_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 1
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "No",
+          "Grok": "Maybe"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "No",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        }
+      }
+    },
+    {
+      "id": "rule-consistency-5",
+      "topicSlug": "rule-consistency",
+      "prompt": "Should fairness rules be applied consistently even when a case seems emotionally unusual?",
+      "tags": [
+        "Ethics & Norms",
+        "Rule Consistency"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 4,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        }
+      }
+    }
+  ]
+}

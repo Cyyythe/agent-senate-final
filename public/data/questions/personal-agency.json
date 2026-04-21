@@ -1,0 +1,290 @@
+{
+  "topicSlug": "personal-agency",
+  "items": [
+    {
+      "id": "personal-agency-1",
+      "topicSlug": "personal-agency",
+      "prompt": "Is financial hardship usually more the result of personal decisions than larger social conditions?",
+      "tags": [
+        "Causality & Responsibility",
+        "Personal Agency"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 4
+        },
+        "single_role": {
+          "outcome": "Yes",
+          "yesVotes": 3,
+          "noVotes": 0
+        },
+        "debate_no_role": {
+          "outcome": "Maybe",
+          "yesVotes": 2,
+          "noVotes": 2
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "No",
+          "Claude": "No",
+          "Gemini": "No",
+          "Grok": "No"
+        },
+        "single_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "Yes",
+          "Grok": "Maybe"
+        },
+        "debate_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "No",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "No"
+        }
+      }
+    },
+    {
+      "id": "personal-agency-2",
+      "topicSlug": "personal-agency",
+      "prompt": "When workers burn out, are individual coping habits usually more responsible than workplace structure?",
+      "tags": [
+        "Causality & Responsibility",
+        "Personal Agency"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 2
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "No",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Maybe",
+          "Gemini": "No",
+          "Grok": "No"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "Yes",
+          "Grok": "Yes"
+        }
+      }
+    },
+    {
+      "id": "personal-agency-3",
+      "topicSlug": "personal-agency",
+      "prompt": "Is poor academic performance usually more the result of student effort than school resources?",
+      "tags": [
+        "Causality & Responsibility",
+        "Personal Agency"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "No",
+          "yesVotes": 1,
+          "noVotes": 2
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 0,
+          "noVotes": 4
+        },
+        "debate_no_role": {
+          "outcome": "Maybe",
+          "yesVotes": 1,
+          "noVotes": 1
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 1,
+          "noVotes": 0
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "No",
+          "Claude": "No",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "No",
+          "Gemini": "No",
+          "Grok": "No"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Maybe",
+          "Gemini": "No",
+          "Grok": "Maybe"
+        },
+        "debate_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Maybe"
+        }
+      }
+    },
+    {
+      "id": "personal-agency-4",
+      "topicSlug": "personal-agency",
+      "prompt": "Is misinformation spread usually more the result of careless users than platform design?",
+      "tags": [
+        "Causality & Responsibility",
+        "Personal Agency"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "debate_no_role": {
+          "outcome": "Maybe",
+          "yesVotes": 1,
+          "noVotes": 1
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "debate_no_role": {
+          "ChatGPT": "No",
+          "Claude": "Maybe",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "debate_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Yes",
+          "Gemini": "No",
+          "Grok": "Maybe"
+        }
+      }
+    },
+    {
+      "id": "personal-agency-5",
+      "topicSlug": "personal-agency",
+      "prompt": "Is poor health usually explained more by lifestyle choices than by environmental conditions?",
+      "tags": [
+        "Causality & Responsibility",
+        "Personal Agency"
+      ],
+      "conditionSummary": {
+        "single_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 0
+        },
+        "single_role": {
+          "outcome": "No",
+          "yesVotes": 1,
+          "noVotes": 2
+        },
+        "debate_no_role": {
+          "outcome": "Yes",
+          "yesVotes": 1,
+          "noVotes": 0
+        },
+        "debate_role": {
+          "outcome": "Yes",
+          "yesVotes": 2,
+          "noVotes": 1
+        }
+      },
+      "agentVotes": {
+        "single_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Yes"
+        },
+        "single_role": {
+          "ChatGPT": "No",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "No"
+        },
+        "debate_no_role": {
+          "ChatGPT": "Maybe",
+          "Claude": "Yes",
+          "Gemini": "Maybe",
+          "Grok": "Maybe"
+        },
+        "debate_role": {
+          "ChatGPT": "Yes",
+          "Claude": "Maybe",
+          "Gemini": "No",
+          "Grok": "Yes"
+        }
+      }
+    }
+  ]
+}

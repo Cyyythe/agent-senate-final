@@ -1,0 +1,177 @@
+{
+  "version": "0.1.0",
+  "generatedAt": "2026-04-21T21:54:46.137Z",
+  "topics": [
+    {
+      "slug": "rule-consistency",
+      "title": "Rule Consistency vs Case-by-Case Exceptions",
+      "spectrum": "Ethics & Norms",
+      "definition": "Whether rules should generally hold across situations or be bent when circumstances are unusual.",
+      "yesMeans": "The rule should generally stay consistent.",
+      "questionCount": 5
+    },
+    {
+      "slug": "self-expression",
+      "title": "Self-Expression vs Role Expectations",
+      "spectrum": "Identity & Culture",
+      "definition": "Whether people should present themselves naturally or adapt to the expectations of school, work, or social roles.",
+      "yesMeans": "Self-expression should be prioritized over role expectations.",
+      "questionCount": 5
+    },
+    {
+      "slug": "public-safety",
+      "title": "Public Safety vs Individual Freedom",
+      "spectrum": "Policy & Governance",
+      "definition": "Whether restrictions on personal freedom are justified when they reduce risks to others.",
+      "yesMeans": "Public safety can justify limiting individual freedom.",
+      "questionCount": 5
+    },
+    {
+      "slug": "personal-agency",
+      "title": "Personal Agency vs Structural Conditions",
+      "spectrum": "Causality & Responsibility",
+      "definition": "Whether outcomes are explained more by individual choices or by broader social and institutional conditions.",
+      "yesMeans": "Individual choices are usually the stronger explanation.",
+      "questionCount": 5
+    },
+    {
+      "slug": "institutional-confidence",
+      "title": "Institutional Confidence vs Institutional Suspicion",
+      "spectrum": "Institutions & Legitimacy",
+      "definition": "Whether institutions should generally be given the benefit of the doubt or treated with caution and doubt.",
+      "yesMeans": "Institutions usually deserve initial confidence.",
+      "questionCount": 5
+    },
+    {
+      "slug": "data-privacy",
+      "title": "Data Privacy vs Everyday Ease",
+      "spectrum": "Technology & Privacy",
+      "definition": "Whether privacy protections should be prioritized over smoother, faster, and easier digital experiences.",
+      "yesMeans": "Privacy should be prioritized over ease.",
+      "questionCount": 5
+    },
+    {
+      "slug": "fast-deployment",
+      "title": "Fast Deployment vs Risk Review",
+      "spectrum": "Innovation & Risk",
+      "definition": "Whether useful new tools should be deployed quickly or held back until risks are better understood.",
+      "yesMeans": "Fast deployment is justified even before full risk review.",
+      "questionCount": 5
+    },
+    {
+      "slug": "immediate-support",
+      "title": "Immediate Support vs Future Resilience",
+      "spectrum": "Economics & Time Horizon",
+      "definition": "Whether solving urgent problems now should take priority over protecting long-term stability later.",
+      "yesMeans": "Immediate support should be prioritized.",
+      "questionCount": 5
+    },
+    {
+      "slug": "individual-rights",
+      "title": "Individual Rights vs Outcome Maximization",
+      "spectrum": "Rights & Utility",
+      "definition": "Whether individual rights should be protected even when overriding them could improve overall outcomes.",
+      "yesMeans": "Individual rights should be protected.",
+      "questionCount": 5
+    },
+    {
+      "slug": "free-choice",
+      "title": "Free Choice vs Protective Restrictions",
+      "spectrum": "Autonomy & Protection",
+      "definition": "Whether people should be free to make risky choices for themselves or be restricted for their own protection.",
+      "yesMeans": "Free choice should be preserved.",
+      "questionCount": 5
+    }
+  ],
+  "paths": {
+    "questionsByTopic": {
+      "rule-consistency": [
+        "/data/questions/rule-consistency.json"
+      ],
+      "self-expression": [
+        "/data/questions/self-expression.json"
+      ],
+      "public-safety": [
+        "/data/questions/public-safety.json"
+      ],
+      "personal-agency": [
+        "/data/questions/personal-agency.json"
+      ],
+      "institutional-confidence": [
+        "/data/questions/institutional-confidence.json"
+      ],
+      "data-privacy": [
+        "/data/questions/data-privacy.json"
+      ],
+      "fast-deployment": [
+        "/data/questions/fast-deployment.json"
+      ],
+      "immediate-support": [
+        "/data/questions/immediate-support.json"
+      ],
+      "individual-rights": [
+        "/data/questions/individual-rights.json"
+      ],
+      "free-choice": [
+        "/data/questions/free-choice.json"
+      ]
+    },
+    "conversationsByTopic": {
+      "rule-consistency": [
+        "/data/conversations/rule-consistency.json"
+      ],
+      "self-expression": [
+        "/data/conversations/self-expression.json"
+      ],
+      "public-safety": [
+        "/data/conversations/public-safety.json"
+      ],
+      "personal-agency": [
+        "/data/conversations/personal-agency.json"
+      ],
+      "institutional-confidence": [
+        "/data/conversations/institutional-confidence.json"
+      ],
+      "data-privacy": [
+        "/data/conversations/data-privacy.json"
+      ],
+      "fast-deployment": [
+        "/data/conversations/fast-deployment.json"
+      ],
+      "immediate-support": [
+        "/data/conversations/immediate-support.json"
+      ],
+      "individual-rights": [
+        "/data/conversations/individual-rights.json"
+      ],
+      "free-choice": [
+        "/data/conversations/free-choice.json"
+      ]
+    },
+    "metrics": "/data/metrics/overview.json"
+  },
+  "conditionMeta": {
+    "single_no_role": {
+      "runMode": "single",
+      "roleMode": "no-role"
+    },
+    "single_role": {
+      "runMode": "single",
+      "roleMode": "role"
+    },
+    "debate_no_role": {
+      "runMode": "debate",
+      "roleMode": "no-role"
+    },
+    "debate_role": {
+      "runMode": "debate",
+      "roleMode": "role"
+    }
+  },
+  "roleMap": {
+    "ChatGPT": "Contrarian",
+    "Claude": "Optimist",
+    "Gemini": "Utilitarian",
+    "Grok": "Absolutist"
+  }
+}
