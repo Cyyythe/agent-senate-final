@@ -13,7 +13,13 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { type TopicMetric } from "@/lib/types";
 
-export function RoundsCompareChart({ metrics }: { metrics: TopicMetric[] }) {
+export function RoundsCompareChart({
+  metrics,
+  title = "Average Debate Rounds by Topic",
+}: {
+  metrics: TopicMetric[];
+  title?: string;
+}) {
   const data = metrics.map((metric) => ({
     topic: metric.topicSlug.replaceAll("-", " "),
     noRole: metric.avgDebateRoundsNoRole,
@@ -23,7 +29,7 @@ export function RoundsCompareChart({ metrics }: { metrics: TopicMetric[] }) {
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle>Average Debate Rounds by Topic</CardTitle>
+        <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent className="h-[320px]">
         <ResponsiveContainer width="100%" height="100%">

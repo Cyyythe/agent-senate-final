@@ -28,11 +28,11 @@ export default function HomePage() {
           Milestone 3 Demo
         </Badge>
         <h1 className="mt-3 text-3xl leading-tight md:text-4xl">
-          Select a Topic and Follow the Story
+          Choose a Topic and Work Through the Question
         </h1>
         <p className="mt-3 max-w-4xl text-lg text-[var(--muted-foreground)]">
-          Each topic page is intentionally linear: topic framing, representative questions, a sample
-          debate trace, and visualization snapshots to help users interpret evidence step by step.
+          Each topic unfolds as its own guided story: a first lean, a concrete anchor case,
+          harder variants, evidence, debate, and local feedback checkpoints along the way.
         </p>
       </section>
 

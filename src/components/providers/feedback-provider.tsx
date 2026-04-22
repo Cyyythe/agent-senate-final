@@ -1,13 +1,18 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { type FeedbackEntry } from "@/lib/types";
+import { type AnswerValue, type FeedbackEntry } from "@/lib/types";
 
 const STORAGE_KEY = "senate-insight-feedback-v1";
 
 interface NewFeedbackInput {
   pagePath: string;
   topicSlug: string | null;
+  stage?: string | null;
+  questionId?: string | null;
+  userAnswer?: AnswerValue | null;
+  confidence?: number;
+  evidenceUsefulness?: number;
   perceptionGap: number;
   clarity: number;
   chartUsefulness: number;

@@ -107,6 +107,11 @@ export interface FeedbackEntry {
   createdAt: string;
   pagePath: string;
   topicSlug: string | null;
+  stage?: string | null;
+  questionId?: string | null;
+  userAnswer?: AnswerValue | null;
+  confidence?: number;
+  evidenceUsefulness?: number;
   perceptionGap: number;
   clarity: number;
   chartUsefulness: number;
