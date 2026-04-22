@@ -27,12 +27,10 @@ export default function HomePage() {
         <Badge variant="accent" className="w-fit">
           Milestone 3 Demo
         </Badge>
-        <h1 className="mt-3 text-3xl leading-tight md:text-4xl">
-          Choose a Topic and Work Through the Question
-        </h1>
+        <h1 className="mt-3 text-3xl leading-tight md:text-4xl">Pick a Question</h1>
         <p className="mt-3 max-w-4xl text-lg text-[var(--muted-foreground)]">
-          Each topic unfolds as its own guided story: a first lean, a concrete anchor case,
-          harder variants, evidence, debate, and local feedback checkpoints along the way.
+          Open a topic, give your first answer, check a few cases, then compare the model runs.
+          You can save quick notes as you go.
         </p>
       </section>
 

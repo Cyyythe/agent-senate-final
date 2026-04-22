@@ -7,20 +7,20 @@ import { Badge } from "@/components/ui/badge";
 
 const PATH_STEPS = [
   {
-    title: "First lean",
-    detail: "Ask for the user's starting position before evidence appears.",
+    title: "Answer first",
+    detail: "Start with your own read.",
   },
   {
-    title: "Anchor case",
-    detail: "Ground the broad value conflict in one concrete prompt.",
+    title: "Check cases",
+    detail: "Move through a few concrete versions.",
   },
   {
-    title: "Evidence",
-    detail: "Show how the answer moves across conditions and role setups.",
+    title: "Compare runs",
+    detail: "See where the model answers changed.",
   },
   {
-    title: "Reflection",
-    detail: "Collect whether the story changed the user's read.",
+    title: "Save notes",
+    detail: "Record what shifted, if anything.",
   },
 ];
 
@@ -44,12 +44,12 @@ export default function TopicsPage() {
     <div className="grid gap-5">
       <section className="senate-panel colonnade p-6 md:p-7">
         <Badge variant="accent" className="w-fit">
-          Topic Stories
+          Topics
         </Badge>
-        <h1 className="mt-3 text-3xl">Question Families</h1>
+        <h1 className="mt-3 text-3xl">Pick a Question</h1>
         <p className="mt-2 max-w-4xl text-[var(--muted-foreground)]">
-          Pick any topic. Inside each page, the user is eased into one value question, shown
-          evidence step by step, and asked for feedback as their interpretation changes.
+          Each topic opens as a short card deck. Answer first, review the cases, compare the
+          model runs, and save a note before moving on.
         </p>
       </section>
 

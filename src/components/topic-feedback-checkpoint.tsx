@@ -35,20 +35,23 @@ export function TopicFeedbackCheckpoint({
   const [saved, setSaved] = useState(false);
 
   return (
-    <div className="rounded-md border border-[var(--line)] bg-[color:color-mix(in_srgb,var(--accent)_8%,white)] p-4">
+    <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <MessageSquareText className="h-4 w-4 text-[var(--accent-strong)]" />
-          <h3 className="font-serif text-lg font-semibold">{stage}</h3>
+          <h3 className="font-serif text-lg font-semibold">Quick Check</h3>
         </div>
-        {saved ? <Badge variant="subtle">Saved</Badge> : null}
+        <div className="flex items-center gap-2">
+          <Badge variant="subtle">{stage}</Badge>
+          {saved ? <Badge variant="accent">Saved</Badge> : null}
+        </div>
       </div>
 
-      <p className="mb-3 text-sm text-[var(--muted-foreground)]">{prompt}</p>
+      <p className="mb-3 text-base">{prompt}</p>
 
       <div className="grid gap-4 lg:grid-cols-[1fr_1fr]">
         <div className="grid gap-3">
-          <Label>Your lean</Label>
+          <Label>Your answer</Label>
           <div className="grid grid-cols-3 gap-2">
             {ANSWERS.map((value) => (
               <button
@@ -83,11 +86,15 @@ export function TopicFeedbackCheckpoint({
               }}
               className="w-full accent-[var(--accent)]"
             />
+            <div className="flex justify-between text-xs text-[var(--muted-foreground)]">
+              <span>Low</span>
+              <span>High</span>
+            </div>
           </Label>
 
           {showEvidenceSlider ? (
             <Label className="grid gap-2">
-              Evidence usefulness: {evidenceUsefulness}
+              Evidence helped: {evidenceUsefulness}
               <input
                 type="range"
                 min={1}
@@ -99,20 +106,24 @@ export function TopicFeedbackCheckpoint({
                 }}
                 className="w-full accent-[var(--accent)]"
               />
+              <div className="flex justify-between text-xs text-[var(--muted-foreground)]">
+                <span>Not much</span>
+                <span>A lot</span>
+              </div>
             </Label>
           ) : null}
         </div>
 
         <div className="grid gap-3">
           <Label className="grid gap-2">
-            Note
+            Optional note
             <Textarea
               value={comment}
               onChange={(event) => {
                 setComment(event.target.value);
                 setSaved(false);
               }}
-              placeholder="What changed, held, or felt unclear?"
+              placeholder="What made you shift, if anything?"
             />
           </Label>
           <Button
@@ -134,7 +145,7 @@ export function TopicFeedbackCheckpoint({
               setSaved(true);
             }}
           >
-            Save Checkpoint
+            Save Answer
           </Button>
         </div>
       </div>

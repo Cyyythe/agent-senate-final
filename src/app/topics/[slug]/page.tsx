@@ -45,37 +45,37 @@ const CONDITION_ORDER: ConditionLabel[] = [
 const ANSWER_VALUES: AnswerValue[] = ["Yes", "No", "Maybe"];
 
 const STORY_STEPS = [
-  "Question",
-  "First read",
-  "Anchor",
-  "Cost",
-  "Systems",
-  "Roles",
-  "Evidence",
-  "Debate",
-  "Reflection",
+  { title: "Set the Question", shortTitle: "Question", kicker: "What is being asked" },
+  { title: "Your First Answer", shortTitle: "First Answer", kicker: "Before seeing results" },
+  { title: "Case 1", shortTitle: "Case 1", kicker: "Start simple" },
+  { title: "Case 2", shortTitle: "Case 2", kicker: "Add a cost" },
+  { title: "Case 3", shortTitle: "Case 3", kicker: "Add a public setting" },
+  { title: "Case 4", shortTitle: "Case 4", kicker: "Add expectations" },
+  { title: "Results", shortTitle: "Results", kicker: "Compare the model runs" },
+  { title: "Agent Discussion", shortTitle: "Discussion", kicker: "Why the result moved" },
+  { title: "Final Answer", shortTitle: "Final", kicker: "Where you land now" },
 ];
 
 const QUESTION_SCOPES = [
   {
-    title: "Anchor Case",
-    detail: "The cleanest version of the question, before the user sees the broader pattern.",
+    title: "Start Simple",
+    detail: "A plain version of the issue.",
   },
   {
-    title: "Cost Enters",
-    detail: "A practical tradeoff appears, so the first instinct has to carry more weight.",
+    title: "Add a Cost",
+    detail: "The same issue, but with a practical downside.",
   },
   {
-    title: "Systems Enter",
-    detail: "The question shifts from one judgment to a broader institutional setting.",
+    title: "Add a Public Setting",
+    detail: "The decision now affects more than one person.",
   },
   {
-    title: "Roles Enter",
-    detail: "Social expectations make the same value conflict less abstract.",
+    title: "Add Expectations",
+    detail: "Work, school, or social rules change the stakes.",
   },
   {
-    title: "Exception Enters",
-    detail: "The hardest case tests whether the starting rule still holds.",
+    title: "Hard Case",
+    detail: "A final check against the answer you started with.",
   },
 ];
 
@@ -125,7 +125,7 @@ function getTopicSides(title: string) {
 
 function getNarrativeQuestion(title: string) {
   const { yesSide, counterSide } = getTopicSides(title);
-  return `When ${yesSide.toLowerCase()} and ${counterSide.toLowerCase()} collide, which side should carry more weight?`;
+  return `When ${yesSide.toLowerCase()} conflicts with ${counterSide.toLowerCase()}, what should win?`;
 }
 
 function getOutcomeCounts(question: QuestionItem) {
@@ -147,7 +147,7 @@ function getOutcomeSummary(question: QuestionItem) {
   const leader = ranked[0];
 
   if (leader.count === 4) {
-    return `All four conditions ended ${leader.answer}.`;
+    return `Every setup landed on ${leader.answer}.`;
   }
 
   const split = ranked
@@ -155,7 +155,31 @@ function getOutcomeSummary(question: QuestionItem) {
     .map((item) => `${item.answer} ${item.count}`)
     .join(", ");
 
-  return `${leader.answer} leads across ${leader.count} of 4 conditions (${split}).`;
+  return `${leader.answer} was the most common result: ${split}.`;
+}
+
+function getTurnText(turn: ConversationItem["turns"][number]) {
+  if (turn.speaker === "Moderator") {
+    return turn.text.replace("Opening prompt: ", "");
+  }
+
+  if (turn.text.includes("challenge the default intuition")) {
+    return "Asks for stronger proof before agreeing.";
+  }
+
+  if (turn.text.includes("constructive framing")) {
+    return "Looks for a practical middle path.";
+  }
+
+  if (turn.text.includes("utility view")) {
+    return "Focuses on the wider group impact.";
+  }
+
+  if (turn.text.includes("rule consistency")) {
+    return "Prefers clear rules unless there is a strong reason to bend them.";
+  }
+
+  return turn.text;
 }
 
 function getFeaturedConversation(conversations: ConversationItem[]) {
@@ -194,7 +218,7 @@ function EvidenceStrip({ question }: { question: QuestionItem }) {
           </div>
           <div className="mt-1 font-semibold">{summary.outcome}</div>
           <div className="text-xs text-[var(--muted-foreground)]">
-            Yes {summary.yesVotes} / No {summary.noVotes}
+            {summary.yesVotes} yes, {summary.noVotes} no
           </div>
         </div>
       ))}
@@ -316,7 +340,7 @@ export default function TopicDetailPage({
               <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-5">
                 <div className="mb-3 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                   <Scale className="h-4 w-4" />
-                  The central tension
+                  Main question
                 </div>
                 <p className="text-2xl leading-snug">{narrativeQuestion}</p>
                 <p className="mt-3 text-sm text-[var(--muted-foreground)]">{topic.definition}</p>
@@ -328,28 +352,28 @@ export default function TopicDetailPage({
                   <p className="mt-2 text-sm text-[var(--muted-foreground)]">{topic.yesMeans}</p>
                 </div>
                 <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
-                  <div className="text-xs text-[var(--muted-foreground)]">The counterweight</div>
+                  <div className="text-xs text-[var(--muted-foreground)]">A No answer favors</div>
                   <div className="mt-1 font-serif text-xl font-semibold">{counterSide}</div>
                   <p className="mt-2 text-sm text-[var(--muted-foreground)]">
-                    The next cards test when this side becomes harder to dismiss.
+                    The cases check when this side starts to look stronger.
                   </p>
                 </div>
               </div>
             </div>
             <div className="rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-5">
               <div className="mb-3 text-sm font-semibold text-[var(--muted-foreground)]">
-                Story arc
+                Cases coming up
               </div>
               <div className="grid gap-2">
                 {STORY_STEPS.slice(2, 6).map((step, index) => (
                   <div
-                    key={step}
+                    key={step.shortTitle}
                     className="flex items-center gap-3 rounded-md bg-[var(--surface)] px-3 py-2 text-sm"
                   >
                     <span className="flex h-6 w-6 items-center justify-center rounded-md border border-[var(--line)] font-semibold">
                       {index + 1}
                     </span>
-                    {step}
+                    {step.kicker}
                   </div>
                 ))}
               </div>
@@ -370,8 +394,8 @@ export default function TopicDetailPage({
             {anchorQuestion ? (
               <TopicFeedbackCheckpoint
                 topicSlug={topic.slug}
-                stage="After Anchor Case"
-                prompt="After seeing the first prompt and its condition outcomes, where do you lean?"
+                stage="After Case 1"
+                prompt="After this case, where do you lean?"
                 questionId={anchorQuestion.id}
                 showEvidenceSlider
               />
@@ -387,8 +411,8 @@ export default function TopicDetailPage({
           <PromptEvidenceCard question={roleQuestion} scope={QUESTION_SCOPES[3]}>
             <TopicFeedbackCheckpoint
               topicSlug={topic.slug}
-              stage="After Case Ladder"
-              prompt="After the harder cases, did your answer become stronger, weaker, or less certain?"
+              stage="After Case 4"
+              prompt="After four cases, where do you lean now?"
               showEvidenceSlider
             />
           </PromptEvidenceCard>
@@ -401,47 +425,47 @@ export default function TopicDetailPage({
                 <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
                   <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                     <TrendingUp className="h-4 w-4" />
-                    Strongest support
+                    Highest Yes rate
                   </div>
                   <div className="text-2xl font-semibold">
                     {formatPercent(metricHighlights.strongest.value)}
                   </div>
                   <p className="text-sm text-[var(--muted-foreground)]">
-                    {metricHighlights.strongest.label} produced the highest Yes rate.
+                    {metricHighlights.strongest.label}
                   </p>
                 </div>
                 <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
                   <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                     <BarChart3 className="h-4 w-4" />
-                    Evidence spread
+                    Range
                   </div>
                   <div className="text-2xl font-semibold">
                     {formatPercent(metricHighlights.spread)}
                   </div>
                   <p className="text-sm text-[var(--muted-foreground)]">
-                    Gap between strongest and weakest Yes rates.
+                    Difference between the highest and lowest Yes rates.
                   </p>
                 </div>
                 <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
                   <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                     <UsersRound className="h-4 w-4" />
-                    Movement
+                    Mind changes
                   </div>
                   <div className="text-2xl font-semibold">{topicMetric.anyMindChangedRate}%</div>
                   <p className="text-sm text-[var(--muted-foreground)]">
-                    Prompts where at least one agent changed position.
+                    Prompts where at least one agent changed answer.
                   </p>
                 </div>
               </div>
             ) : null}
             <div className="grid gap-4 xl:grid-cols-2">
-              <ConditionBarChart metrics={topicMetrics} title="How the Answer Moves by Condition" />
-              <RoundsCompareChart metrics={topicMetrics} title="How Much Debate This Topic Needed" />
+              <ConditionBarChart metrics={topicMetrics} title="Yes Rate by Setup" />
+              <RoundsCompareChart metrics={topicMetrics} title="Debate Rounds" />
             </div>
             <TopicFeedbackCheckpoint
               topicSlug={topic.slug}
-              stage="After Evidence"
-              prompt="After the chart evidence, which answer feels best supported?"
+              stage="After Results"
+              prompt="After the results, which answer feels best supported?"
               showEvidenceSlider
             />
           </div>
@@ -452,12 +476,12 @@ export default function TopicDetailPage({
             <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
               <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                 <MessageSquareText className="h-4 w-4" />
-                Featured prompt
+                Debate prompt
               </div>
               <h3 className="font-serif text-xl font-semibold">{featuredPrompt}</h3>
               <p className="mt-2 text-sm text-[var(--muted-foreground)]">
-                Final consensus: <strong>{featuredConversation.finalConsensus}</strong>. Debate
-                length: <strong>{formatRounds(featuredConversation.roundsCompleted)}</strong>.
+                Final answer: <strong>{featuredConversation.finalConsensus}</strong>. Length:{" "}
+                <strong>{formatRounds(featuredConversation.roundsCompleted)}</strong>.
               </p>
             </div>
             <div className="flex flex-wrap gap-1.5">
@@ -476,7 +500,7 @@ export default function TopicDetailPage({
                   <div className="mb-1 text-xs tracking-wide text-[var(--muted-foreground)] uppercase">
                     {index + 1}. {turn.speaker}
                   </div>
-                  <p className="text-sm">{turn.text}</p>
+                  <p className="text-sm">{getTurnText(turn)}</p>
                 </div>
               ))}
             </div>
@@ -491,11 +515,11 @@ export default function TopicDetailPage({
               <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
                 <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                   <CheckCircle2 className="h-4 w-4" />
-                  What the story established
+                  What you saw
                 </div>
                 <p className="text-sm text-[var(--muted-foreground)]">
-                  The topic began with a clean value conflict, added harder cases, then showed
-                  whether condition changes and agent roles made the answer more stable.
+                  You answered first, checked four cases, compared the model runs, and reviewed a
+                  short agent discussion.
                 </p>
               </div>
               {edgeQuestion ? (
@@ -503,16 +527,15 @@ export default function TopicDetailPage({
                   <Badge variant="subtle">{QUESTION_SCOPES[4].title}</Badge>
                   <h3 className="mt-2 font-serif text-lg font-semibold">{edgeQuestion.prompt}</h3>
                   <p className="mt-2 text-sm text-[var(--muted-foreground)]">
-                    {getOutcomeSummary(edgeQuestion)} This last case is the stress test for the
-                    final user position.
+                    {getOutcomeSummary(edgeQuestion)} Use this as a final check against your answer.
                   </p>
                 </div>
               ) : null}
             </div>
             <TopicFeedbackCheckpoint
               topicSlug={topic.slug}
-              stage="Final Reflection"
-              prompt="At the end of this topic story, where do you land?"
+              stage="Final Answer"
+              prompt="Where do you land now?"
               questionId={edgeQuestion?.id}
               showEvidenceSlider
             />
@@ -528,7 +551,7 @@ export default function TopicDetailPage({
           <div className="max-w-4xl">
             <div className="flex flex-wrap items-center gap-2">
               <Badge variant="accent">{topic.spectrum}</Badge>
-              <Badge variant="subtle">{topic.questionCount} prompts in this story</Badge>
+              <Badge variant="subtle">{topic.questionCount} prompts</Badge>
             </div>
             <h1 className="mt-3 text-3xl">{topic.title}</h1>
             <p className="mt-2 text-xl leading-snug">{narrativeQuestion}</p>
@@ -546,7 +569,7 @@ export default function TopicDetailPage({
       <section className="grid gap-2 sm:grid-cols-3 xl:grid-cols-9">
         {STORY_STEPS.map((step, index) => (
           <button
-            key={step}
+            key={step.shortTitle}
             type="button"
             onClick={() => setActiveStep(index)}
             aria-current={activeStep === index ? "step" : undefined}
@@ -563,9 +586,9 @@ export default function TopicDetailPage({
                   : "text-[var(--muted-foreground)]"
               }`}
             >
-              Card {index + 1}
+              {index + 1}
             </div>
-            <div className="font-serif text-base font-semibold">{step}</div>
+            <div className="font-serif text-base font-semibold">{step.shortTitle}</div>
           </button>
         ))}
       </section>
@@ -573,8 +596,8 @@ export default function TopicDetailPage({
       <section className="senate-panel p-5 md:p-6">
         <StoryHeader
           step={activeStep + 1}
-          title={STORY_STEPS[activeStep]}
-          kicker={`${activeStep + 1} of ${STORY_STEPS.length}`}
+          title={STORY_STEPS[activeStep].title}
+          kicker={STORY_STEPS[activeStep].kicker}
         />
         <div className="min-h-[440px]">{activeContent}</div>
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--line-subtle)] pt-4">
@@ -588,7 +611,7 @@ export default function TopicDetailPage({
             Previous
           </Button>
           <div className="text-sm text-[var(--muted-foreground)]">
-            Card {activeStep + 1} of {STORY_STEPS.length}
+            {activeStep + 1} of {STORY_STEPS.length}
           </div>
           <Button
             type="button"

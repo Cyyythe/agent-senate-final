@@ -53,7 +53,7 @@ export function TopicCard({
             <CardContent className="mt-3 grid gap-2 p-0 text-sm">
               <p className="text-[var(--muted-foreground)]">{topic.definition}</p>
               <p>
-                <span className="font-semibold">Starting interpretation:</span> {topic.yesMeans}
+                <span className="font-semibold">Yes means:</span> {topic.yesMeans}
               </p>
             </CardContent>
           </div>
@@ -61,7 +61,7 @@ export function TopicCard({
         <CardFooter className={cn("p-0", order && "md:justify-end")}>
           <Button asChild className={cn("w-full", order && "md:w-auto")}>
             <Link href={`/topics/${topic.slug}`}>
-              Start Topic <ArrowRight className="h-4 w-4" />
+              Start <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
         </CardFooter>
