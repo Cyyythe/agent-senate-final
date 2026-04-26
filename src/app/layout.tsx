@@ -18,7 +18,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Senate Insight",
+  title: "Agent Senate",
   description:
     "Research exploration platform for tradeoff-oriented LLM studies across conditions, roles, and topics.",
 };

@@ -2,6 +2,7 @@ export type AgentName = "ChatGPT" | "Claude" | "Gemini" | "Grok";
 export type RunMode = "single" | "debate";
 export type RoleMode = "role" | "no-role";
 export type AnswerValue = "Yes" | "No" | "Maybe";
+export type RawAnswerValue = AnswerValue | "Stalemate" | "ERROR";
 
 export type ConditionKey =
   | "single_no_role"
@@ -20,17 +21,58 @@ export interface TopicDescriptor {
 
 export interface ConditionSummary {
   outcome: AnswerValue;
+  rawOutcome: RawAnswerValue;
   yesVotes: number;
   noVotes: number;
+  maybeVotes: number;
+}
+
+export interface ConditionAgentResponse {
+  agent: AgentName;
+  provider: string;
+  model: string;
+  role: string | null;
+  decision: AnswerValue;
+  rawDecision: RawAnswerValue;
+  confidence: number | null;
+  reasoning: string | null;
+  reasoningPreview: string | null;
+  timeSeconds: number | null;
+}
+
+export interface QuestionConditionDetail {
+  runMode: RunMode;
+  roleMode: RoleMode;
+  summary: ConditionSummary;
+  responses: Record<AgentName, ConditionAgentResponse>;
+}
+
+export interface BlindMatchCard {
+  slot: string;
+  agent: AgentName;
+  role: string | null;
+  decision: AnswerValue;
+  rawDecision: RawAnswerValue;
+  confidence: number | null;
+  reasoning: string | null;
+  reasoningPreview: string | null;
+}
+
+export interface BlindMatchSet {
+  sourceCondition: ConditionKey;
+  cards: BlindMatchCard[];
 }
 
 export interface QuestionItem {
   id: string;
   topicSlug: string;
+  questionNumber: number;
   prompt: string;
   tags: string[];
   conditionSummary: Record<ConditionKey, ConditionSummary>;
   agentVotes: Record<ConditionKey, Record<AgentName, AnswerValue>>;
+  conditionDetails: Record<ConditionKey, QuestionConditionDetail>;
+  blindMatch: BlindMatchSet;
 }
 
 export interface TopicQuestionsChunk {
@@ -40,24 +82,62 @@ export interface TopicQuestionsChunk {
 
 export interface ConversationRoleAssignment {
   agent: AgentName;
-  role: string;
+  role: string | null;
 }
 
-export interface ConversationTurn {
-  speaker: string;
-  text: string;
+export interface ConversationAgentState {
+  agent: AgentName;
+  role: string | null;
+  provider: string;
+  decision: AnswerValue;
+  rawDecision: RawAnswerValue;
+  confidence: number | null;
+  reasoning: string | null;
+  reasoningPreview: string | null;
+  moderatorRedirect: string | null;
+  coalitionCounter: string | null;
+  concededThisRound: boolean;
+  everConceded: boolean;
+  avgPeerRating: number | null;
+}
+
+export interface ConversationVotePoint {
+  round: number;
+  yes: number;
+  no: number;
+}
+
+export interface ConversationRound {
+  round: number;
+  votes: ConversationVotePoint;
+  agents: Record<AgentName, ConversationAgentState>;
 }
 
 export interface ConversationItem {
   id: string;
   topicSlug: string;
   questionId: string;
-  runMode: RunMode;
+  questionNumber: number;
+  prompt: string;
+  runMode: "debate";
   roleMode: RoleMode;
   roleAssignments: ConversationRoleAssignment[];
-  turns: ConversationTurn[];
+  initialResponses: Record<AgentName, ConversationAgentState>;
+  rounds: ConversationRound[];
+  voteHistory: ConversationVotePoint[];
   finalConsensus: AnswerValue;
+  rawFinalConsensus: RawAnswerValue;
   roundsCompleted: number;
+  finalState: Record<
+    AgentName,
+    {
+      role: string | null;
+      decision: AnswerValue;
+      rawDecision: RawAnswerValue;
+      confidence: number | null;
+      everConceded: boolean;
+    }
+  >;
 }
 
 export interface TopicConversationsChunk {
@@ -74,6 +154,8 @@ export interface TopicMetric {
   avgDebateRoundsNoRole: number;
   avgDebateRoundsRole: number;
   anyMindChangedRate: number;
+  conditionDisagreementRate: number;
+  stalemateRate: number;
 }
 
 export interface MetricsChunk {
@@ -90,7 +172,7 @@ export interface DataManifest {
     metrics: string;
   };
   conditionMeta: Record<ConditionKey, { runMode: RunMode; roleMode: RoleMode }>;
-  roleMap: Record<AgentName, string>;
+  roleMap: Record<string, string>;
 }
 
 export interface FilterState {
@@ -110,10 +192,13 @@ export interface FeedbackEntry {
   stage?: string | null;
   questionId?: string | null;
   userAnswer?: AnswerValue | null;
+  alignedSlot?: string | null;
+  alignedAgent?: AgentName | null;
+  alignedDecision?: AnswerValue | null;
   confidence?: number;
   evidenceUsefulness?: number;
-  perceptionGap: number;
-  clarity: number;
-  chartUsefulness: number;
+  perceptionGap?: number;
+  clarity?: number;
+  chartUsefulness?: number;
   comment: string;
 }

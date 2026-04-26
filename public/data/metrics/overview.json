@@ -1,124 +1,144 @@
 {
   "items": [
     {
-      "topicSlug": "rule-consistency",
-      "yesRateByCondition": {
-        "Single, No Role": 0.6,
-        "Single, Role": 0.8,
-        "Debate, No Role": 1,
-        "Debate, Role": 0.8
-      },
-      "avgDebateRoundsNoRole": 0.66,
-      "avgDebateRoundsRole": 1.37,
-      "anyMindChangedRate": 60
-    },
-    {
-      "topicSlug": "self-expression",
-      "yesRateByCondition": {
-        "Single, No Role": 1,
-        "Single, Role": 0,
-        "Debate, No Role": 0.6,
-        "Debate, Role": 0.8
-      },
-      "avgDebateRoundsNoRole": 0.44,
-      "avgDebateRoundsRole": 1.35,
-      "anyMindChangedRate": 60
-    },
-    {
-      "topicSlug": "public-safety",
-      "yesRateByCondition": {
-        "Single, No Role": 0.8,
-        "Single, Role": 0.8,
-        "Debate, No Role": 1,
-        "Debate, Role": 1
-      },
-      "avgDebateRoundsNoRole": 0.55,
-      "avgDebateRoundsRole": 1,
-      "anyMindChangedRate": 40
-    },
-    {
-      "topicSlug": "personal-agency",
-      "yesRateByCondition": {
-        "Single, No Role": 0.6,
-        "Single, Role": 0.4,
-        "Debate, No Role": 0.4,
-        "Debate, Role": 1
-      },
-      "avgDebateRoundsNoRole": 0.47,
-      "avgDebateRoundsRole": 1.82,
-      "anyMindChangedRate": 100
-    },
-    {
-      "topicSlug": "institutional-confidence",
-      "yesRateByCondition": {
-        "Single, No Role": 0.8,
-        "Single, Role": 0.2,
-        "Debate, No Role": 1,
-        "Debate, Role": 0.6
-      },
-      "avgDebateRoundsNoRole": 0.57,
-      "avgDebateRoundsRole": 1.66,
-      "anyMindChangedRate": 60
-    },
-    {
       "topicSlug": "data-privacy",
       "yesRateByCondition": {
-        "Single, No Role": 1,
-        "Single, Role": 0.4,
-        "Debate, No Role": 1,
-        "Debate, Role": 0.8
+        "Single, No Role": 0.407,
+        "Single, Role": 0.162,
+        "Debate, No Role": 0.583,
+        "Debate, Role": 0.366
       },
-      "avgDebateRoundsNoRole": 0.44,
-      "avgDebateRoundsRole": 1.67,
-      "anyMindChangedRate": 80
+      "avgDebateRoundsNoRole": 1.62,
+      "avgDebateRoundsRole": 2.72,
+      "anyMindChangedRate": 28.7,
+      "conditionDisagreementRate": 81,
+      "stalemateRate": 80.1
     },
     {
       "topicSlug": "fast-deployment",
       "yesRateByCondition": {
-        "Single, No Role": 0,
-        "Single, Role": 0,
-        "Debate, No Role": 0.4,
-        "Debate, Role": 0.2
+        "Single, No Role": 0.213,
+        "Single, Role": 0.111,
+        "Debate, No Role": 0.347,
+        "Debate, Role": 0.44
       },
-      "avgDebateRoundsNoRole": 0.51,
-      "avgDebateRoundsRole": 1.6,
-      "anyMindChangedRate": 20
-    },
-    {
-      "topicSlug": "immediate-support",
-      "yesRateByCondition": {
-        "Single, No Role": 1,
-        "Single, Role": 0.6,
-        "Debate, No Role": 0.8,
-        "Debate, Role": 1
-      },
-      "avgDebateRoundsNoRole": 0.54,
-      "avgDebateRoundsRole": 1.27,
-      "anyMindChangedRate": 60
-    },
-    {
-      "topicSlug": "individual-rights",
-      "yesRateByCondition": {
-        "Single, No Role": 1,
-        "Single, Role": 0.6,
-        "Debate, No Role": 1,
-        "Debate, Role": 0.8
-      },
-      "avgDebateRoundsNoRole": 0.54,
-      "avgDebateRoundsRole": 1.01,
-      "anyMindChangedRate": 40
+      "avgDebateRoundsNoRole": 1.66,
+      "avgDebateRoundsRole": 2.83,
+      "anyMindChangedRate": 54.6,
+      "conditionDisagreementRate": 86.6,
+      "stalemateRate": 77.8
     },
     {
       "topicSlug": "free-choice",
       "yesRateByCondition": {
-        "Single, No Role": 0.8,
-        "Single, Role": 0.2,
-        "Debate, No Role": 0.6,
-        "Debate, Role": 0.4
+        "Single, No Role": 0.634,
+        "Single, Role": 0.389,
+        "Debate, No Role": 0.653,
+        "Debate, Role": 0.491
       },
-      "avgDebateRoundsNoRole": 0.53,
-      "avgDebateRoundsRole": 1.28,
-      "anyMindChangedRate": 60
+      "avgDebateRoundsNoRole": 1.24,
+      "avgDebateRoundsRole": 2.25,
+      "anyMindChangedRate": 26.9,
+      "conditionDisagreementRate": 58.3,
+      "stalemateRate": 56
+    },
+    {
+      "topicSlug": "immediate-support",
+      "yesRateByCondition": {
+        "Single, No Role": 0.324,
+        "Single, Role": 0.13,
+        "Debate, No Role": 0.44,
+        "Debate, Role": 0.37
+      },
+      "avgDebateRoundsNoRole": 1.58,
+      "avgDebateRoundsRole": 2.42,
+      "anyMindChangedRate": 41.2,
+      "conditionDisagreementRate": 72.2,
+      "stalemateRate": 65.7
+    },
+    {
+      "topicSlug": "individual-rights",
+      "yesRateByCondition": {
+        "Single, No Role": 0.481,
+        "Single, Role": 0.287,
+        "Debate, No Role": 0.56,
+        "Debate, Role": 0.398
+      },
+      "avgDebateRoundsNoRole": 1.14,
+      "avgDebateRoundsRole": 2.38,
+      "anyMindChangedRate": 23.6,
+      "conditionDisagreementRate": 65.7,
+      "stalemateRate": 60.6
+    },
+    {
+      "topicSlug": "institutional-confidence",
+      "yesRateByCondition": {
+        "Single, No Role": 0.306,
+        "Single, Role": 0.222,
+        "Debate, No Role": 0.449,
+        "Debate, Role": 0.347
+      },
+      "avgDebateRoundsNoRole": 1.49,
+      "avgDebateRoundsRole": 2.62,
+      "anyMindChangedRate": 28.7,
+      "conditionDisagreementRate": 62.5,
+      "stalemateRate": 60.6
+    },
+    {
+      "topicSlug": "personal-agency",
+      "yesRateByCondition": {
+        "Single, No Role": 0.403,
+        "Single, Role": 0.287,
+        "Debate, No Role": 0.491,
+        "Debate, Role": 0.389
+      },
+      "avgDebateRoundsNoRole": 1.31,
+      "avgDebateRoundsRole": 2.56,
+      "anyMindChangedRate": 31.9,
+      "conditionDisagreementRate": 54.6,
+      "stalemateRate": 52.8
+    },
+    {
+      "topicSlug": "public-safety",
+      "yesRateByCondition": {
+        "Single, No Role": 0.631,
+        "Single, Role": 0.477,
+        "Debate, No Role": 0.804,
+        "Debate, Role": 0.636
+      },
+      "avgDebateRoundsNoRole": 1.19,
+      "avgDebateRoundsRole": 2.78,
+      "anyMindChangedRate": 27.6,
+      "conditionDisagreementRate": 55.6,
+      "stalemateRate": 53.3
+    },
+    {
+      "topicSlug": "rule-consistency",
+      "yesRateByCondition": {
+        "Single, No Role": 0.128,
+        "Single, Role": 0.205,
+        "Debate, No Role": 0.233,
+        "Debate, Role": 0.306
+      },
+      "avgDebateRoundsNoRole": 1.35,
+      "avgDebateRoundsRole": 2.68,
+      "anyMindChangedRate": 32.4,
+      "conditionDisagreementRate": 62.6,
+      "stalemateRate": 55.3
+    },
+    {
+      "topicSlug": "self-expression",
+      "yesRateByCondition": {
+        "Single, No Role": 0.704,
+        "Single, Role": 0.404,
+        "Debate, No Role": 0.762,
+        "Debate, Role": 0.646
+      },
+      "avgDebateRoundsNoRole": 0.87,
+      "avgDebateRoundsRole": 2.39,
+      "anyMindChangedRate": 42.2,
+      "conditionDisagreementRate": 58.3,
+      "stalemateRate": 51.1
     }
   ]
 }

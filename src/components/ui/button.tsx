@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold ring-offset-background transition-colors disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold ring-offset-background transition-all duration-150 active:translate-y-px disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--bronze)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)]",
   {
     variants: {
       variant: {
@@ -13,7 +13,7 @@ const buttonVariants = cva(
         secondary:
           "bg-[var(--card-muted)] text-[var(--foreground)] hover:bg-[var(--card-muted-hover)]",
         outline:
-          "border border-[var(--line)] bg-[var(--card)] text-[var(--foreground)] hover:bg-[var(--card-muted)]",
+          "border border-[var(--line)] bg-[var(--card)] text-[var(--foreground)] hover:border-[var(--bronze)] hover:bg-[var(--card-muted)]",
         ghost: "text-[var(--foreground)] hover:bg-[var(--card-muted)]",
       },
       size: {

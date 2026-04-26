@@ -10,10 +10,10 @@ export default function NotFound() {
       </CardHeader>
       <CardContent className="grid gap-3">
         <p className="text-sm text-[var(--muted-foreground)]">
-          The page you requested is not part of this demo route map yet.
+          The page you requested is not part of this route map yet.
         </p>
         <Button asChild className="w-fit">
-          <Link href="/">Return to Main Page</Link>
+          <Link href="/">Return Home</Link>
         </Button>
       </CardContent>
     </Card>

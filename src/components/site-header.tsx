@@ -6,7 +6,7 @@ import { Landmark } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
-  { href: "/", label: "Main Page" },
+  { href: "/", label: "Home" },
   { href: "/topics", label: "Topics" },
 ];
 
@@ -14,27 +14,34 @@ export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--line)] bg-[color:color-mix(in_srgb,var(--surface)_92%,white)] backdrop-blur supports-[backdrop-filter]:bg-[color:color-mix(in_srgb,var(--surface)_84%,white)]">
+    <header className="sticky top-0 z-40 border-b border-[var(--line)] bg-[color:color-mix(in_srgb,var(--surface)_94%,white)] shadow-sm backdrop-blur supports-[backdrop-filter]:bg-[color:color-mix(in_srgb,var(--surface)_88%,white)]">
       <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-4 px-4 py-3 md:px-6">
         <Link href="/" className="flex items-center gap-2 font-serif text-lg font-bold">
-          <Landmark className="h-5 w-5 text-[var(--accent-strong)]" />
-          Senate Insight
+          <span className="flex h-9 w-9 items-center justify-center rounded-md border border-[var(--line)] bg-[var(--card-muted)]">
+            <Landmark className="h-5 w-5 text-[var(--accent)]" />
+          </span>
+          Agent Senate
         </Link>
         <nav className="flex items-center gap-1 rounded-md border border-[var(--line)] bg-[var(--card)] p-1">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "rounded-md px-3 py-2 text-sm transition-colors",
-                pathname === item.href
-                  ? "bg-[var(--accent)] text-[var(--accent-foreground)]"
-                  : "text-[var(--muted-foreground)] hover:bg-[var(--card-muted)] hover:text-[var(--foreground)]"
-              )}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            const isActive =
+              item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "rounded-md px-3 py-2 text-sm transition-colors",
+                  isActive
+                    ? "bg-[var(--accent)] text-[var(--accent-foreground)]"
+                    : "text-[var(--muted-foreground)] hover:bg-[var(--card-muted)] hover:text-[var(--foreground)]"
+                )}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
       </div>
     </header>

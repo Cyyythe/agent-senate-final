@@ -1,18 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f6f0e5;
-  --foreground: #23160a;
-  --surface: #fbf7ef;
-  --card: #fffaf2;
-  --card-muted: #f1e8d8;
-  --card-muted-hover: #e5d8c2;
-  --line: #d7c8ad;
-  --line-subtle: #e8dcc9;
-  --muted-foreground: #6c5a43;
-  --accent: #8f6f47;
-  --accent-strong: #6f5333;
-  --accent-foreground: #f9f2e5;
+  --background: #f3eadc;
+  --foreground: #21160c;
+  --surface: #fffaf1;
+  --card: #fffdf8;
+  --card-muted: #eee2ce;
+  --card-muted-hover: #dfcfb5;
+  --line: #bfa984;
+  --line-subtle: #dfcfb6;
+  --muted-foreground: #574834;
+  --accent: #76241f;
+  --accent-strong: #4e1714;
+  --accent-muted: #ead6c8;
+  --accent-foreground: #fff8eb;
+  --bronze: #9a6b2f;
+  --bronze-strong: #69451f;
+  --ink-soft: #3a2a1a;
+  --stone-shadow: rgba(58, 35, 18, 0.14);
 }
 
 @theme inline {
@@ -36,17 +41,25 @@ body {
 .marble-surface {
   position: relative;
   background:
+    linear-gradient(90deg, rgba(118, 36, 31, 0.06), transparent 16%, transparent 84%, rgba(118, 36, 31, 0.06)),
+    repeating-linear-gradient(
+      90deg,
+      rgba(105, 69, 31, 0.04) 0,
+      rgba(105, 69, 31, 0.04) 1px,
+      transparent 1px,
+      transparent 96px
+    ),
     radial-gradient(
       1200px 500px at -10% -10%,
-      rgba(170, 146, 108, 0.25) 0%,
+      rgba(154, 107, 47, 0.2) 0%,
       transparent 45%
     ),
     radial-gradient(
       1200px 500px at 110% 10%,
-      rgba(108, 92, 69, 0.14) 0%,
+      rgba(118, 36, 31, 0.1) 0%,
       transparent 50%
     ),
-    linear-gradient(180deg, #f8f2e8 0%, #f2e9d8 100%);
+    linear-gradient(180deg, #faf4e9 0%, #eee1cd 100%);
 }
 
 .marble-surface::before {
@@ -62,53 +75,226 @@ body {
   background-position: 0 0, 150px 80px;
 }
 
+.marble-surface::after {
+  content: "";
+  position: fixed;
+  inset: auto 0 0;
+  height: 84px;
+  pointer-events: none;
+  opacity: 0.18;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 34px,
+      rgba(105, 69, 31, 0.34) 34px,
+      rgba(105, 69, 31, 0.34) 36px,
+      transparent 36px,
+      transparent 72px
+    ),
+    linear-gradient(180deg, transparent, rgba(154, 107, 47, 0.16));
+}
+
 h1,
 h2,
 h3,
 h4 {
   font-family: var(--font-cinzel), serif;
-  letter-spacing: 0.01em;
+  letter-spacing: 0;
 }
 
 .senate-panel {
   border: 1px solid var(--line);
-  border-radius: 14px;
-  background: linear-gradient(180deg, rgba(255, 252, 245, 0.96), rgba(248, 240, 227, 0.96));
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(118, 36, 31, 0.95), rgba(154, 107, 47, 0.95)) top / 100% 3px no-repeat,
+    linear-gradient(180deg, rgba(255, 252, 245, 0.97), rgba(247, 238, 223, 0.97));
   box-shadow:
     0 2px 0 rgba(255, 255, 255, 0.8) inset,
     0 8px 26px rgba(60, 39, 18, 0.08);
 }
 
-.colonnade {
+.forum-hero {
   position: relative;
-  overflow: visible;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 3.75rem 1.75rem 1.75rem;
+  background:
+    linear-gradient(110deg, rgba(255, 253, 248, 0.96), rgba(244, 232, 211, 0.96)),
+    repeating-linear-gradient(
+      135deg,
+      rgba(87, 72, 52, 0.07) 0,
+      rgba(87, 72, 52, 0.07) 1px,
+      transparent 1px,
+      transparent 18px
+    );
+  box-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.86) inset,
+    0 18px 40px var(--stone-shadow);
 }
 
-.colonnade::before,
-.colonnade::after {
+.forum-hero::before {
   content: "";
   position: absolute;
   top: 0;
-  bottom: 0;
-  width: 12px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: linear-gradient(180deg, #f5e8d3 0%, #e8d6ba 100%);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.45) inset;
+  right: 0;
+  left: 0;
+  height: 34px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 18px,
+      rgba(255, 248, 235, 0.32) 18px,
+      rgba(255, 248, 235, 0.32) 28px,
+      transparent 28px,
+      transparent 46px
+    ),
+    linear-gradient(90deg, var(--accent-strong), var(--accent), var(--bronze-strong));
+  border-bottom: 1px solid var(--line);
 }
 
-.colonnade::before {
-  left: -18px;
+.forum-hero::after {
+  content: "AS";
+  position: absolute;
+  right: 1.5rem;
+  bottom: -1.1rem;
+  z-index: 0;
+  color: rgba(118, 36, 31, 0.07);
+  font-family: var(--font-cinzel), serif;
+  font-size: clamp(5rem, 13vw, 11rem);
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
 }
 
-.colonnade::after {
-  right: -18px;
+.forum-hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.forum-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.forum-kicker::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+}
+
+.forum-title {
+  max-width: 900px;
+  color: var(--foreground);
+  font-size: clamp(2rem, 4vw, 4.25rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.forum-subtitle {
+  max-width: 760px;
+  color: var(--ink-soft);
+  font-size: 1.2rem;
+  line-height: 1.45;
+}
+
+.forum-action {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.chamber-step {
+  position: relative;
+  overflow: hidden;
+}
+
+.chamber-step::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--bronze);
+  opacity: 0.75;
+}
+
+.chamber-step[aria-current="step"]::before {
+  background: var(--accent-foreground);
+  opacity: 0.95;
+}
+
+.topic-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.topic-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  background: linear-gradient(90deg, var(--accent), var(--bronze));
+}
+
+.topic-card::after {
+  content: "SENATUS";
+  position: absolute;
+  right: 1rem;
+  bottom: 0.4rem;
+  color: rgba(118, 36, 31, 0.06);
+  font-family: var(--font-cinzel), serif;
+  font-size: 2.7rem;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.roman-index {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.94), rgba(238, 226, 206, 0.94)),
+    repeating-linear-gradient(
+      90deg,
+      rgba(105, 69, 31, 0.12) 0,
+      rgba(105, 69, 31, 0.12) 1px,
+      transparent 1px,
+      transparent 5px
+    );
+}
+
+.answer-tablet {
+  position: relative;
+  overflow: hidden;
+}
+
+.answer-tablet::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--bronze), var(--accent));
+  opacity: 0.6;
 }
 
 @media (max-width: 768px) {
-  .colonnade::before,
-  .colonnade::after {
-    display: none;
+  .forum-hero {
+    padding: 3rem 1.1rem 1.25rem;
+  }
+
+  .forum-hero-content {
+    display: grid;
+  }
+
+  .forum-title {
+    font-size: 2rem;
   }
 }
 
@@ -121,4 +307,9 @@ input,
 textarea,
 button {
   font-family: var(--font-cormorant), serif;
+}
+
+::selection {
+  background: var(--accent-muted);
+  color: var(--foreground);
 }

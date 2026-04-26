@@ -4,9 +4,9 @@ export default function AboutPage() {
   return (
     <div className="grid gap-5">
       <section className="senate-panel p-6">
-        <h1 className="text-3xl">About This Application</h1>
+        <h1 className="text-3xl">About Agent Senate</h1>
         <p className="mt-2 max-w-4xl text-[var(--muted-foreground)]">
-          Senate Insight is a Milestone 3 proof-of-concept focused on making model-comparison
+          Agent Senate is a study tool focused on making model-comparison
           research legible: questions first, visual evidence second, and user interpretation built
           into the workflow.
         </p>

@@ -3,16 +3,16 @@ import { type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium",
+  "inline-flex items-center rounded-md border px-2.5 py-1 text-xs font-semibold",
   {
     variants: {
       variant: {
         default:
           "border-[var(--line)] bg-[var(--card-muted)] text-[var(--foreground)]",
         accent:
-          "border-[var(--accent-strong)] bg-[color:color-mix(in_srgb,var(--accent)_22%,white)] text-[var(--accent-foreground)]",
+          "border-[var(--accent-strong)] bg-[var(--accent)] text-[var(--accent-foreground)] shadow-sm",
         subtle:
-          "border-[var(--line-subtle)] bg-[var(--surface)] text-[var(--muted-foreground)]",
+          "border-[var(--line)] bg-[var(--surface)] text-[var(--foreground)]",
       },
     },
     defaultVariants: {

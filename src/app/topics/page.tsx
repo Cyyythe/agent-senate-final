@@ -7,20 +7,20 @@ import { Badge } from "@/components/ui/badge";
 
 const PATH_STEPS = [
   {
-    title: "Answer first",
-    detail: "Start with your own read.",
+    title: "Read blind answers",
+    detail: "See the model reasoning before the case.",
   },
   {
-    title: "Check cases",
-    detail: "Move through a few concrete versions.",
+    title: "Reveal the case",
+    detail: "Then compare the prompt against the answers.",
   },
   {
-    title: "Compare runs",
-    detail: "See where the model answers changed.",
+    title: "Inspect one debate",
+    detail: "Watch one disagreement unfold round by round.",
   },
   {
-    title: "Save notes",
-    detail: "Record what shifted, if anything.",
+    title: "Check the full topic",
+    detail: "Step back to the larger pattern.",
   },
 ];
 
@@ -42,24 +42,28 @@ export default function TopicsPage() {
 
   return (
     <div className="grid gap-5">
-      <section className="senate-panel colonnade p-6 md:p-7">
-        <Badge variant="accent" className="w-fit">
-          Topics
-        </Badge>
-        <h1 className="mt-3 text-3xl">Pick a Question</h1>
-        <p className="mt-2 max-w-4xl text-[var(--muted-foreground)]">
-          Each topic opens as a short card deck. Answer first, review the cases, compare the
-          model runs, and save a note before moving on.
-        </p>
+      <section className="forum-hero">
+        <div className="forum-hero-content">
+          <div>
+            <Badge variant="accent" className="w-fit">
+              Topics
+            </Badge>
+            <h1 className="forum-title mt-4">Choose a Chamber</h1>
+            <p className="forum-subtitle mt-4">
+              Each topic opens as a short card deck. You start with blind answers, reveal the case,
+              inspect one real debate, and then step back to the topic-wide data.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {PATH_STEPS.map((step, index) => (
           <div
             key={step.title}
-            className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4"
+            className="topic-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4 pt-5 shadow-sm"
           >
-            <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-md bg-[var(--card-muted)] font-serif font-semibold">
+            <div className="roman-index mb-3 flex h-8 w-8 items-center justify-center rounded-md border border-[var(--line)] font-serif font-semibold">
               {index + 1}
             </div>
             <h2 className="font-serif text-lg font-semibold">{step.title}</h2>

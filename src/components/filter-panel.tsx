@@ -17,7 +17,7 @@ export function FilterPanel({ manifest }: FilterPanelProps) {
   const spectrumOptions = Array.from(
     new Set(topicOptions.map((topic) => topic.spectrum))
   ).sort((a, b) => a.localeCompare(b));
-  const roleOptions = manifest?.roleMap ? Object.values(manifest.roleMap) : [];
+  const roleOptions = manifest?.roleMap ? Object.keys(manifest.roleMap).sort() : [];
 
   return (
     <Card className="border-[var(--line)]">

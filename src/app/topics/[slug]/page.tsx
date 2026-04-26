@@ -8,9 +8,10 @@ import {
   BarChart3,
   BookOpenText,
   CheckCircle2,
+  Eye,
   MessageSquareText,
   Scale,
-  TrendingUp,
+  Shuffle,
   UsersRound,
 } from "lucide-react";
 import {
@@ -21,11 +22,13 @@ import {
 } from "@/hooks/use-study-data";
 import { CONDITION_LABELS } from "@/lib/constants";
 import {
-  type AnswerValue,
+  type AgentName,
+  type ConditionKey,
   type ConversationItem,
   type QuestionItem,
   type TopicMetric,
 } from "@/lib/types";
+import { BlindAnswerMatch } from "@/components/blind-answer-match";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { StateBox } from "@/components/state-box";
@@ -35,49 +38,28 @@ import { TopicFeedbackCheckpoint } from "@/components/topic-feedback-checkpoint"
 
 type ConditionLabel = keyof TopicMetric["yesRateByCondition"];
 
-const CONDITION_ORDER: ConditionLabel[] = [
+const AGENT_ORDER: AgentName[] = ["ChatGPT", "Claude", "Gemini", "Grok"];
+const CONDITION_ORDER: ConditionKey[] = [
+  "single_no_role",
+  "single_role",
+  "debate_no_role",
+  "debate_role",
+];
+const CHART_CONDITION_ORDER: ConditionLabel[] = [
   "Single, No Role",
   "Single, Role",
   "Debate, No Role",
   "Debate, Role",
 ];
-
-const ANSWER_VALUES: AnswerValue[] = ["Yes", "No", "Maybe"];
-
 const STORY_STEPS = [
-  { title: "Set the Question", shortTitle: "Question", kicker: "What is being asked" },
-  { title: "Your First Answer", shortTitle: "First Answer", kicker: "Before seeing results" },
-  { title: "Case 1", shortTitle: "Case 1", kicker: "Start simple" },
-  { title: "Case 2", shortTitle: "Case 2", kicker: "Add a cost" },
-  { title: "Case 3", shortTitle: "Case 3", kicker: "Add a public setting" },
-  { title: "Case 4", shortTitle: "Case 4", kicker: "Add expectations" },
-  { title: "Results", shortTitle: "Results", kicker: "Compare the model runs" },
-  { title: "Agent Discussion", shortTitle: "Discussion", kicker: "Why the result moved" },
-  { title: "Final Answer", shortTitle: "Final", kicker: "Where you land now" },
-];
-
-const QUESTION_SCOPES = [
-  {
-    title: "Start Simple",
-    detail: "A plain version of the issue.",
-  },
-  {
-    title: "Add a Cost",
-    detail: "The same issue, but with a practical downside.",
-  },
-  {
-    title: "Add a Public Setting",
-    detail: "The decision now affects more than one person.",
-  },
-  {
-    title: "Add Expectations",
-    detail: "Work, school, or social rules change the stakes.",
-  },
-  {
-    title: "Hard Case",
-    detail: "A final check against the answer you started with.",
-  },
-];
+  { title: "Set the Question", shortTitle: "Intro", kicker: "What this topic is asking" },
+  { title: "Sample 1", shortTitle: "Sample 1", kicker: "Start with a cleaner case" },
+  { title: "Sample 2", shortTitle: "Sample 2", kicker: "See where setup changes the answer" },
+  { title: "Sample 3", shortTitle: "Sample 3", kicker: "Check a harder split" },
+  { title: "One Debate", shortTitle: "Debate", kicker: "Watch one real disagreement play out" },
+  { title: "Whole Topic", shortTitle: "Data", kicker: "Step back to the larger pattern" },
+  { title: "Final Answer", shortTitle: "Final", kicker: "Where you land after the evidence" },
+] as const;
 
 function StoryHeader({
   step,
@@ -102,7 +84,7 @@ function StoryHeader({
 function MissingQuestionCard() {
   return (
     <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4 text-sm text-[var(--muted-foreground)]">
-      This prompt is unavailable in the current topic data.
+      This sample is unavailable in the current topic data.
     </div>
   );
 }
@@ -111,8 +93,20 @@ function formatPercent(value: number) {
   return `${Math.round(value * 100)}%`;
 }
 
+function formatPercentFromRate(value: number) {
+  return `${Math.round(value)}%`;
+}
+
 function formatRounds(rounds: number) {
   return `${rounds} ${rounds === 1 ? "round" : "rounds"}`;
+}
+
+function formatConditionOutcome(question: QuestionItem, condition: ConditionKey) {
+  const summary = question.conditionSummary[condition];
+  if (summary.rawOutcome === "Stalemate") {
+    return "Split 2-2";
+  }
+  return summary.outcome;
 }
 
 function getTopicSides(title: string) {
@@ -128,75 +122,126 @@ function getNarrativeQuestion(title: string) {
   return `When ${yesSide.toLowerCase()} conflicts with ${counterSide.toLowerCase()}, what should win?`;
 }
 
-function getOutcomeCounts(question: QuestionItem) {
-  const counts: Record<AnswerValue, number> = { Yes: 0, No: 0, Maybe: 0 };
+function getQuestionPatternSummary(question: QuestionItem) {
+  const outcomes = CONDITION_ORDER.map((condition) => question.conditionSummary[condition].outcome);
+  const rawOutcomes = CONDITION_ORDER.map((condition) => question.conditionSummary[condition].rawOutcome);
+  const uniqueOutcomes = new Set(outcomes);
 
-  Object.values(question.conditionSummary).forEach((summary) => {
-    counts[summary.outcome] += 1;
-  });
+  if (rawOutcomes.every((outcome) => outcome === rawOutcomes[0]) && rawOutcomes[0] !== "Stalemate") {
+    return `Every setup landed on ${rawOutcomes[0]}.`;
+  }
 
-  return counts;
+  if (rawOutcomes.includes("Stalemate")) {
+    return "At least one setup split 2-2 instead of settling on a clear answer.";
+  }
+
+  if (uniqueOutcomes.size > 1) {
+    return "The answer changed across the four setups.";
+  }
+
+  return "The setups leaned the same way overall, but not with the same vote pattern.";
 }
 
-function getOutcomeSummary(question: QuestionItem) {
-  const counts = getOutcomeCounts(question);
-  const ranked = ANSWER_VALUES.map((answer) => ({
-    answer,
-    count: counts[answer],
-  })).sort((a, b) => b.count - a.count);
-  const leader = ranked[0];
-
-  if (leader.count === 4) {
-    return `Every setup landed on ${leader.answer}.`;
-  }
-
-  const split = ranked
-    .filter((item) => item.count > 0)
-    .map((item) => `${item.answer} ${item.count}`)
-    .join(", ");
-
-  return `${leader.answer} was the most common result: ${split}.`;
+function countAnswerShifts(question: QuestionItem) {
+  const uniqueOutcomes = new Set(
+    CONDITION_ORDER.map((condition) => question.conditionSummary[condition].outcome)
+  );
+  return uniqueOutcomes.size;
 }
 
-function getTurnText(turn: ConversationItem["turns"][number]) {
-  if (turn.speaker === "Moderator") {
-    return turn.text.replace("Opening prompt: ", "");
-  }
-
-  if (turn.text.includes("challenge the default intuition")) {
-    return "Asks for stronger proof before agreeing.";
-  }
-
-  if (turn.text.includes("constructive framing")) {
-    return "Looks for a practical middle path.";
-  }
-
-  if (turn.text.includes("utility view")) {
-    return "Focuses on the wider group impact.";
-  }
-
-  if (turn.text.includes("rule consistency")) {
-    return "Prefers clear rules unless there is a strong reason to bend them.";
-  }
-
-  return turn.text;
+function getReasoningCount(question: QuestionItem) {
+  return (question.blindMatch?.cards ?? []).filter((card) => card.reasoningPreview).length;
 }
 
-function getFeaturedConversation(conversations: ConversationItem[]) {
-  return [...conversations].sort((a, b) => {
-    const aWeight = a.roundsCompleted * 10 + (a.finalConsensus === "Maybe" ? 2 : 0);
-    const bWeight = b.roundsCompleted * 10 + (b.finalConsensus === "Maybe" ? 2 : 0);
-    return bWeight - aWeight;
+function pickStoryQuestions(questions: QuestionItem[]) {
+  if (questions.length === 0) return [];
+
+  const used = new Set<string>();
+  const picked: QuestionItem[] = [];
+
+  const stableCase =
+    questions.find(
+      (question) =>
+        countAnswerShifts(question) === 1 &&
+        !CONDITION_ORDER.some(
+          (condition) => question.conditionSummary[condition].rawOutcome === "Stalemate"
+        ) &&
+        getReasoningCount(question) >= 3
+    ) ?? questions[0];
+
+  picked.push(stableCase);
+  used.add(stableCase.id);
+
+  const swingCase =
+    questions.find(
+      (question) =>
+        !used.has(question.id) &&
+        question.conditionSummary.single_no_role.outcome !==
+          question.conditionSummary.debate_role.outcome &&
+        getReasoningCount(question) >= 3
+    ) ??
+    questions.find(
+      (question) => !used.has(question.id) && countAnswerShifts(question) > 1
+    ) ??
+    questions.find((question) => !used.has(question.id));
+
+  if (swingCase) {
+    picked.push(swingCase);
+    used.add(swingCase.id);
+  }
+
+  const splitCase =
+    questions.find(
+      (question) =>
+        !used.has(question.id) &&
+        CONDITION_ORDER.some(
+          (condition) => question.conditionSummary[condition].rawOutcome === "Stalemate"
+        ) &&
+        getReasoningCount(question) >= 3
+    ) ?? questions.find((question) => !used.has(question.id));
+
+  if (splitCase) {
+    picked.push(splitCase);
+    used.add(splitCase.id);
+  }
+
+  while (picked.length < 3) {
+    const fallback = questions.find((question) => !used.has(question.id));
+    if (!fallback) break;
+    picked.push(fallback);
+    used.add(fallback.id);
+  }
+
+  return picked;
+}
+
+function countConversationSwitches(conversation: ConversationItem) {
+  return AGENT_ORDER.filter(
+    (agent) => conversation.initialResponses[agent].decision !== conversation.finalState[agent].decision
+  ).length;
+}
+
+function getFeaturedConversation(
+  conversations: ConversationItem[],
+  preferredQuestionIds: string[]
+) {
+  return [...conversations].sort((left, right) => {
+    const leftPriority = preferredQuestionIds.includes(left.questionId) ? 100 : 0;
+    const rightPriority = preferredQuestionIds.includes(right.questionId) ? 100 : 0;
+    const leftScore = leftPriority + left.roundsCompleted * 10 + countConversationSwitches(left) * 3;
+    const rightScore =
+      rightPriority + right.roundsCompleted * 10 + countConversationSwitches(right) * 3;
+    return rightScore - leftScore;
   })[0];
 }
 
 function getMetricHighlights(metric: TopicMetric | undefined) {
   if (!metric) return null;
 
-  const entries = CONDITION_ORDER.map((label) => ({
+  const entries = CHART_CONDITION_ORDER.map((label) => ({
     label,
     value: metric.yesRateByCondition[label],
-  })).sort((a, b) => b.value - a.value);
+  })).sort((left, right) => right.value - left.value);
 
   return {
     strongest: entries[0],
@@ -208,48 +253,221 @@ function getMetricHighlights(metric: TopicMetric | undefined) {
 function EvidenceStrip({ question }: { question: QuestionItem }) {
   return (
     <div className="grid gap-2 md:grid-cols-4">
-      {Object.entries(question.conditionSummary).map(([key, summary]) => (
-        <div
-          key={key}
-          className="rounded-md border border-[var(--line-subtle)] bg-[var(--card-muted)] px-3 py-2 text-sm"
-        >
-          <div className="text-xs text-[var(--muted-foreground)]">
-            {CONDITION_LABELS[key as keyof typeof CONDITION_LABELS]}
+      {CONDITION_ORDER.map((condition) => {
+        const summary = question.conditionSummary[condition];
+        return (
+          <div
+            key={condition}
+            className="rounded-md border border-[var(--line-subtle)] bg-[var(--card-muted)] px-3 py-2 text-sm"
+          >
+            <div className="text-xs text-[var(--muted-foreground)]">{CONDITION_LABELS[condition]}</div>
+            <div className="mt-1 font-semibold">{formatConditionOutcome(question, condition)}</div>
+            <div className="text-xs text-[var(--muted-foreground)]">
+              {summary.yesVotes} yes, {summary.noVotes} no
+            </div>
           </div>
-          <div className="mt-1 font-semibold">{summary.outcome}</div>
-          <div className="text-xs text-[var(--muted-foreground)]">
-            {summary.yesVotes} yes, {summary.noVotes} no
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
 
-function PromptEvidenceCard({
+function SampleStep({
+  topicSlug,
+  label,
   question,
-  scope,
-  children,
 }: {
+  topicSlug: string;
+  label: string;
   question: QuestionItem | undefined;
-  scope: (typeof QUESTION_SCOPES)[number];
-  children?: ReactNode;
 }) {
+  const [revealed, setRevealed] = useState(false);
+
   if (!question) return <MissingQuestionCard />;
+
+  const blindMatch = question.blindMatch;
+  const blindCards = blindMatch?.cards ?? [];
 
   return (
     <div className="grid gap-4">
-      <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
-        <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
-          <BookOpenText className="h-4 w-4" />
-          {scope.title}
+      <BlindAnswerMatch
+        key={question.id}
+        topicSlug={topicSlug}
+        stage={`${label} blind pick`}
+        questionId={question.id}
+        cards={blindCards}
+      />
+
+      <div className="rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-4 shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <div className="mb-1 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
+              <Shuffle className="h-4 w-4" />
+              Source run
+            </div>
+            <p className="text-sm text-[var(--muted-foreground)]">
+              These blind answers came from{" "}
+              <strong>{CONDITION_LABELS[blindMatch.sourceCondition]}</strong>.
+            </p>
+          </div>
+          <Button type="button" onClick={() => setRevealed((value) => !value)}>
+            <Eye className="h-4 w-4" />
+            {revealed ? "Hide Case" : "Reveal Case"}
+          </Button>
         </div>
-        <h3 className="font-serif text-xl font-semibold">{question.prompt}</h3>
-        <p className="mt-2 text-sm text-[var(--muted-foreground)]">{scope.detail}</p>
       </div>
-      <EvidenceStrip question={question} />
-      <p className="text-sm text-[var(--muted-foreground)]">{getOutcomeSummary(question)}</p>
-      {children}
+
+      {revealed ? (
+        <>
+          <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+            <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
+              <BookOpenText className="h-4 w-4" />
+              Revealed case
+            </div>
+            <h3 className="font-serif text-xl font-semibold">{question.prompt}</h3>
+            <p className="mt-2 text-sm text-[var(--muted-foreground)]">
+              {getQuestionPatternSummary(question)}
+            </p>
+          </div>
+
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            {blindCards.map((card) => (
+              <div
+                key={card.slot}
+                className="rounded-md border border-[var(--line-subtle)] bg-[var(--surface)] p-3"
+              >
+                <div className="mb-2 flex items-center justify-between gap-2">
+                  <Badge variant="subtle">Answer {card.slot}</Badge>
+                  <Badge variant={card.decision === "Yes" ? "accent" : "default"}>
+                    {card.decision}
+                  </Badge>
+                </div>
+                <div className="font-semibold">{card.agent}</div>
+                <div className="text-xs text-[var(--muted-foreground)]">
+                  {card.role ?? "No role assignment"}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <EvidenceStrip question={question} />
+
+          <TopicFeedbackCheckpoint
+            topicSlug={topicSlug}
+            stage={`${label} revealed`}
+            prompt="Now that you can see the case, what is your answer?"
+            questionId={question.id}
+            showEvidenceSlider
+          />
+        </>
+      ) : (
+        <div className="rounded-md border border-dashed border-[var(--line)] bg-[var(--surface)] p-4 text-sm text-[var(--muted-foreground)]">
+          Reveal the case when you are ready to compare your pick against the actual prompt and the
+          four run setups.
+        </div>
+      )}
+    </div>
+  );
+}
+
+function DebateStep({ conversation }: { conversation: ConversationItem | undefined }) {
+  if (!conversation) {
+    return (
+      <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4 text-sm text-[var(--muted-foreground)]">
+        No debate snapshot was available for this topic.
+      </div>
+    );
+  }
+
+  const switchCount = countConversationSwitches(conversation);
+  const leadRedirect =
+    conversation.rounds
+      .flatMap((round) => AGENT_ORDER.map((agent) => round.agents[agent].moderatorRedirect))
+      .find(Boolean) ?? null;
+
+  return (
+    <div className="grid gap-4">
+      <div className="grid gap-3 lg:grid-cols-[1.15fr_.85fr]">
+        <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+          <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
+            <MessageSquareText className="h-4 w-4" />
+            Debate prompt
+          </div>
+          <h3 className="font-serif text-xl font-semibold">{conversation.prompt}</h3>
+          <p className="mt-2 text-sm text-[var(--muted-foreground)]">
+            Final answer: <strong>{conversation.finalConsensus}</strong>. Length:{" "}
+            <strong>{formatRounds(conversation.roundsCompleted)}</strong>. Agents who switched:{" "}
+            <strong>{switchCount}</strong>.
+          </p>
+        </div>
+        <div className="rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-4">
+          <div className="mb-3 text-sm font-semibold text-[var(--muted-foreground)]">
+            Vote history
+          </div>
+          <div className="grid gap-2">
+            {(conversation.voteHistory.length > 0 ? conversation.voteHistory : [{ round: 0, yes: 0, no: 0 }]).map(
+              (point) => (
+                <div
+                  key={point.round}
+                  className="flex items-center justify-between rounded-md bg-[var(--surface)] px-3 py-2 text-sm"
+                >
+                  <span>Round {point.round}</span>
+                  <span>
+                    {point.yes} yes / {point.no} no
+                  </span>
+                </div>
+              )
+            )}
+          </div>
+        </div>
+      </div>
+
+      {leadRedirect ? (
+        <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+          <div className="mb-2 text-sm font-semibold text-[var(--muted-foreground)]">
+            Moderator pressure
+          </div>
+          <p className="text-sm">{leadRedirect}</p>
+        </div>
+      ) : null}
+
+      <div className="grid gap-3 md:grid-cols-2">
+        {AGENT_ORDER.map((agent) => {
+          const initial = conversation.initialResponses[agent];
+          const final = conversation.finalState[agent];
+          const switched = initial.decision !== final.decision;
+
+          return (
+            <div
+              key={agent}
+              className="rounded-md border border-[var(--line-subtle)] bg-[var(--surface)] p-4"
+            >
+              <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <div className="font-semibold">{agent}</div>
+                  <div className="text-xs text-[var(--muted-foreground)]">
+                    {initial.role ?? "No role assignment"}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Badge variant={initial.decision === "Yes" ? "accent" : "default"}>
+                    Started {initial.decision}
+                  </Badge>
+                  <Badge variant={final.decision === "Yes" ? "accent" : "default"}>
+                    Ended {final.decision}
+                  </Badge>
+                </div>
+              </div>
+              <p className="text-sm leading-6">
+                {initial.reasoningPreview ?? "No written opening argument was captured."}
+              </p>
+              <div className="mt-3 text-xs text-[var(--muted-foreground)]">
+                {switched ? "Changed position during the debate." : "Held the same position."}
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -277,7 +495,7 @@ export default function TopicDetailPage({
     return (
       <StateBox
         title="Loading topic..."
-        message="Reading prompts, conversation snapshots, and chart metrics."
+        message="Reading prompt samples, debate records, and topic metrics."
       />
     );
   }
@@ -299,28 +517,23 @@ export default function TopicDetailPage({
 
   const topic = manifest.topics.find((item) => item.slug === slug);
   if (!topic) {
-    return (
-      <StateBox title="Topic not found" message={`No topic metadata found for "${slug}".`} />
-    );
+    return <StateBox title="Topic not found" message={`No topic metadata found for "${slug}".`} />;
   }
 
   const topicMetric = metrics.find((metric) => metric.topicSlug === slug);
   const topicMetrics = topicMetric ? [topicMetric] : [];
   const metricHighlights = getMetricHighlights(topicMetric);
-  const storyQuestions = questions.slice(0, 5);
-  const anchorQuestion = storyQuestions[0];
-  const costQuestion = storyQuestions[1];
-  const systemQuestion = storyQuestions[2];
-  const roleQuestion = storyQuestions[3];
-  const edgeQuestion = storyQuestions[4];
-  const featuredConversation = getFeaturedConversation(conversations);
-  const featuredPrompt = featuredConversation
-    ? questions.find((question) => question.id === featuredConversation.questionId)?.prompt
-    : null;
+  const storyQuestions = pickStoryQuestions(questions);
+  const [sampleOne, sampleTwo, sampleThree] = storyQuestions;
+  const featuredConversation = getFeaturedConversation(
+    conversations,
+    storyQuestions.map((question) => question.id)
+  );
   const narrativeQuestion = getNarrativeQuestion(topic.title);
   const { yesSide, counterSide } = getTopicSides(topic.title);
   const isFirstStep = activeStep === 0;
   const isLastStep = activeStep === STORY_STEPS.length - 1;
+
   const setActiveStep = (nextStep: number | ((currentStep: number) => number)) => {
     setDeckState((current) => {
       const currentStep = current.slug === slug ? current.activeStep : 0;
@@ -331,7 +544,7 @@ export default function TopicDetailPage({
     });
   };
 
-  const activeContent = (() => {
+  const activeContent: ReactNode = (() => {
     switch (activeStep) {
       case 0:
         return (
@@ -355,25 +568,29 @@ export default function TopicDetailPage({
                   <div className="text-xs text-[var(--muted-foreground)]">A No answer favors</div>
                   <div className="mt-1 font-serif text-xl font-semibold">{counterSide}</div>
                   <p className="mt-2 text-sm text-[var(--muted-foreground)]">
-                    The cases check when this side starts to look stronger.
+                    The samples test when this side starts to look stronger.
                   </p>
                 </div>
               </div>
             </div>
             <div className="rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-5">
               <div className="mb-3 text-sm font-semibold text-[var(--muted-foreground)]">
-                Cases coming up
+                What happens next
               </div>
               <div className="grid gap-2">
-                {STORY_STEPS.slice(2, 6).map((step, index) => (
+                {[
+                  "Read blind answers before you see the case.",
+                  "Reveal the case and compare the four run setups.",
+                  "Inspect one full debate, then step back to the topic-wide data.",
+                ].map((line, index) => (
                   <div
-                    key={step.shortTitle}
+                    key={line}
                     className="flex items-center gap-3 rounded-md bg-[var(--surface)] px-3 py-2 text-sm"
                   >
                     <span className="flex h-6 w-6 items-center justify-center rounded-md border border-[var(--line)] font-semibold">
                       {index + 1}
                     </span>
-                    {step.kicker}
+                    {line}
                   </div>
                 ))}
               </div>
@@ -382,49 +599,41 @@ export default function TopicDetailPage({
         );
       case 1:
         return (
-          <TopicFeedbackCheckpoint
+          <SampleStep
+            key={sampleOne?.id ?? "sample-1"}
             topicSlug={topic.slug}
-            stage="First Lean"
-            prompt={narrativeQuestion}
+            label="Sample 1"
+            question={sampleOne}
           />
         );
       case 2:
         return (
-          <PromptEvidenceCard question={anchorQuestion} scope={QUESTION_SCOPES[0]}>
-            {anchorQuestion ? (
-              <TopicFeedbackCheckpoint
-                topicSlug={topic.slug}
-                stage="After Case 1"
-                prompt="After this case, where do you lean?"
-                questionId={anchorQuestion.id}
-                showEvidenceSlider
-              />
-            ) : null}
-          </PromptEvidenceCard>
+          <SampleStep
+            key={sampleTwo?.id ?? "sample-2"}
+            topicSlug={topic.slug}
+            label="Sample 2"
+            question={sampleTwo}
+          />
         );
       case 3:
-        return <PromptEvidenceCard question={costQuestion} scope={QUESTION_SCOPES[1]} />;
-      case 4:
-        return <PromptEvidenceCard question={systemQuestion} scope={QUESTION_SCOPES[2]} />;
-      case 5:
         return (
-          <PromptEvidenceCard question={roleQuestion} scope={QUESTION_SCOPES[3]}>
-            <TopicFeedbackCheckpoint
-              topicSlug={topic.slug}
-              stage="After Case 4"
-              prompt="After four cases, where do you lean now?"
-              showEvidenceSlider
-            />
-          </PromptEvidenceCard>
+          <SampleStep
+            key={sampleThree?.id ?? "sample-3"}
+            topicSlug={topic.slug}
+            label="Sample 3"
+            question={sampleThree}
+          />
         );
-      case 6:
+      case 4:
+        return <DebateStep conversation={featuredConversation} />;
+      case 5:
         return (
           <div className="grid gap-4">
             {topicMetric && metricHighlights ? (
-              <div className="grid gap-3 md:grid-cols-3">
+              <div className="grid gap-3 md:grid-cols-4">
                 <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
                   <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
-                    <TrendingUp className="h-4 w-4" />
+                    <BarChart3 className="h-4 w-4" />
                     Highest Yes rate
                   </div>
                   <div className="text-2xl font-semibold">
@@ -436,77 +645,53 @@ export default function TopicDetailPage({
                 </div>
                 <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
                   <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
-                    <BarChart3 className="h-4 w-4" />
-                    Range
+                    <Shuffle className="h-4 w-4" />
+                    Setup changed answer
                   </div>
                   <div className="text-2xl font-semibold">
-                    {formatPercent(metricHighlights.spread)}
+                    {formatPercentFromRate(topicMetric.conditionDisagreementRate)}
                   </div>
                   <p className="text-sm text-[var(--muted-foreground)]">
-                    Difference between the highest and lowest Yes rates.
+                    Prompts where the four setups did not land the same way.
                   </p>
                 </div>
                 <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
                   <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                     <UsersRound className="h-4 w-4" />
-                    Mind changes
+                    Debate switchers
                   </div>
-                  <div className="text-2xl font-semibold">{topicMetric.anyMindChangedRate}%</div>
+                  <div className="text-2xl font-semibold">
+                    {formatPercentFromRate(topicMetric.anyMindChangedRate)}
+                  </div>
                   <p className="text-sm text-[var(--muted-foreground)]">
-                    Prompts where at least one agent changed answer.
+                    Prompts where at least one agent changed answer during a debate.
+                  </p>
+                </div>
+                <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+                  <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
+                    <MessageSquareText className="h-4 w-4" />
+                    Split rate
+                  </div>
+                  <div className="text-2xl font-semibold">
+                    {formatPercentFromRate(topicMetric.stalemateRate)}
+                  </div>
+                  <p className="text-sm text-[var(--muted-foreground)]">
+                    Prompts where at least one setup ended in a 2-2 split.
                   </p>
                 </div>
               </div>
             ) : null}
             <div className="grid gap-4 xl:grid-cols-2">
               <ConditionBarChart metrics={topicMetrics} title="Yes Rate by Setup" />
-              <RoundsCompareChart metrics={topicMetrics} title="Debate Rounds" />
+              <RoundsCompareChart metrics={topicMetrics} title="Average Debate Length" />
             </div>
             <TopicFeedbackCheckpoint
               topicSlug={topic.slug}
-              stage="After Results"
-              prompt="After the results, which answer feels best supported?"
+              stage="Whole topic"
+              prompt="After the topic-wide data, which answer feels best supported?"
               showEvidenceSlider
             />
           </div>
-        );
-      case 7:
-        return featuredConversation ? (
-          <div className="grid gap-4">
-            <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
-              <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
-                <MessageSquareText className="h-4 w-4" />
-                Debate prompt
-              </div>
-              <h3 className="font-serif text-xl font-semibold">{featuredPrompt}</h3>
-              <p className="mt-2 text-sm text-[var(--muted-foreground)]">
-                Final answer: <strong>{featuredConversation.finalConsensus}</strong>. Length:{" "}
-                <strong>{formatRounds(featuredConversation.roundsCompleted)}</strong>.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              {featuredConversation.roleAssignments.map((assignment) => (
-                <Badge key={assignment.agent} variant="subtle">
-                  {assignment.agent}: {assignment.role}
-                </Badge>
-              ))}
-            </div>
-            <div className="grid gap-2 md:grid-cols-2">
-              {featuredConversation.turns.map((turn, index) => (
-                <div
-                  key={`${turn.speaker}-${index}`}
-                  className="rounded-md border border-[var(--line-subtle)] bg-[var(--surface)] p-3"
-                >
-                  <div className="mb-1 text-xs tracking-wide text-[var(--muted-foreground)] uppercase">
-                    {index + 1}. {turn.speaker}
-                  </div>
-                  <p className="text-sm">{getTurnText(turn)}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <p className="text-[var(--muted-foreground)]">No sample conversation found.</p>
         );
       default:
         return (
@@ -518,25 +703,22 @@ export default function TopicDetailPage({
                   What you saw
                 </div>
                 <p className="text-sm text-[var(--muted-foreground)]">
-                  You answered first, checked four cases, compared the model runs, and reviewed a
-                  short agent discussion.
+                  You matched yourself to blind answers, revealed three cases, inspected one real
+                  debate, and then checked the full topic pattern.
                 </p>
               </div>
-              {edgeQuestion ? (
-                <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
-                  <Badge variant="subtle">{QUESTION_SCOPES[4].title}</Badge>
-                  <h3 className="mt-2 font-serif text-lg font-semibold">{edgeQuestion.prompt}</h3>
-                  <p className="mt-2 text-sm text-[var(--muted-foreground)]">
-                    {getOutcomeSummary(edgeQuestion)} Use this as a final check against your answer.
-                  </p>
-                </div>
-              ) : null}
+              <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+                <div className="text-xs text-[var(--muted-foreground)]">Question count</div>
+                <div className="mt-1 font-serif text-xl font-semibold">{topic.questionCount} prompts</div>
+                <p className="mt-2 text-sm text-[var(--muted-foreground)]">
+                  This final answer should reflect both the sample cases and the broader run data.
+                </p>
+              </div>
             </div>
             <TopicFeedbackCheckpoint
               topicSlug={topic.slug}
-              stage="Final Answer"
-              prompt="Where do you land now?"
-              questionId={edgeQuestion?.id}
+              stage="Final answer"
+              prompt="After this topic, where do you land?"
               showEvidenceSlider
             />
           </div>
@@ -546,18 +728,18 @@ export default function TopicDetailPage({
 
   return (
     <div className="grid gap-5">
-      <section className="senate-panel colonnade p-6 md:p-7">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div className="max-w-4xl">
+      <section className="forum-hero">
+        <div className="forum-hero-content">
+          <div>
             <div className="flex flex-wrap items-center gap-2">
               <Badge variant="accent">{topic.spectrum}</Badge>
               <Badge variant="subtle">{topic.questionCount} prompts</Badge>
             </div>
-            <h1 className="mt-3 text-3xl">{topic.title}</h1>
-            <p className="mt-2 text-xl leading-snug">{narrativeQuestion}</p>
+            <h1 className="forum-title mt-4">{topic.title}</h1>
+            <p className="forum-subtitle mt-4">{narrativeQuestion}</p>
             <p className="mt-2 text-[var(--muted-foreground)]">{topic.definition}</p>
           </div>
-          <Button asChild variant="outline">
+          <Button asChild variant="outline" className="forum-action">
             <Link href="/topics">
               <ArrowLeft className="h-4 w-4" />
               Topics
@@ -566,17 +748,17 @@ export default function TopicDetailPage({
         </div>
       </section>
 
-      <section className="grid gap-2 sm:grid-cols-3 xl:grid-cols-9">
+      <section className="grid gap-2 sm:grid-cols-3 xl:grid-cols-7">
         {STORY_STEPS.map((step, index) => (
           <button
             key={step.shortTitle}
             type="button"
             onClick={() => setActiveStep(index)}
             aria-current={activeStep === index ? "step" : undefined}
-            className={`rounded-md border px-3 py-3 text-left transition-colors ${
+            className={`chamber-step rounded-md border px-3 py-3 pl-4 text-left shadow-sm transition-all duration-150 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--bronze)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)] ${
               activeStep === index
                 ? "border-[var(--accent-strong)] bg-[var(--accent)] text-[var(--accent-foreground)]"
-                : "border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--card-muted)]"
+                : "border-[var(--line)] bg-[var(--surface)] hover:border-[var(--bronze)] hover:bg-[var(--card-muted)]"
             }`}
           >
             <div

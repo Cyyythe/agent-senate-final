@@ -79,8 +79,8 @@ export default function MethodologyPage() {
           </CardHeader>
           <CardContent className="grid gap-2 text-sm">
             <p>
-              Main Page -&gt; Topic Entry -&gt; Topic Story -&gt; Explorer -&gt; Visual
-              Summaries.
+              Home -&gt; Topic Entry -&gt; Blind Sample -&gt; Debate -&gt; Visual
+              Summary.
             </p>
             <p>
               Each step broadens scope from individual prompts to aggregate patterns, helping users

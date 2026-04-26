@@ -22,16 +22,16 @@ export function TopicCard({
   total?: number;
 }) {
   return (
-    <Card className="h-full">
+    <Card className="topic-card h-full transition-all duration-150 hover:-translate-y-0.5 hover:border-[var(--bronze)] hover:shadow-[0_12px_30px_rgba(58,35,18,.13)]">
       <div
         className={cn(
-          "grid h-full gap-4 p-5",
+          "relative z-10 grid h-full gap-4 p-5 pt-6",
           order && "md:grid-cols-[minmax(0,1fr)_auto] md:items-center"
         )}
       >
         <div className="flex min-w-0 gap-4">
           {order ? (
-            <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-md border border-[var(--line)] bg-[var(--card-muted)] leading-none">
+            <div className="roman-index flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-md border border-[var(--line)] leading-none">
               <span className="font-serif text-lg font-semibold">
                 {String(order).padStart(2, "0")}
               </span>

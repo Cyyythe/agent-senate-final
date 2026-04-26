@@ -69,13 +69,12 @@ export default function ExplorerPage() {
     if (filters.agent !== "all" || filters.role !== "all") {
       const activeAgent = filters.agent === "all" ? null : filters.agent;
       const activeRole = filters.role === "all" ? null : filters.role;
-      const roleMap = manifest.roleMap;
 
       const hasMatchingAgent = visibleConditions.some((condition) => {
-        const entries = Object.entries(question.agentVotes[condition]);
-        return entries.some(([agentName]) => {
+        const entries = Object.entries(question.conditionDetails[condition].responses);
+        return entries.some(([agentName, response]) => {
           const agentMatches = activeAgent ? agentName === activeAgent : true;
-          const roleMatches = activeRole ? roleMap[agentName as keyof typeof roleMap] === activeRole : true;
+          const roleMatches = activeRole ? response.role === activeRole : true;
           return agentMatches && roleMatches;
         });
       });
