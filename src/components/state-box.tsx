@@ -8,7 +8,7 @@ export function StateBox({
   message: string;
 }) {
   return (
-    <Card>
+    <Card className="stage-card">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>

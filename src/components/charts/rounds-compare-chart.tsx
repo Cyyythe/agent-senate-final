@@ -27,7 +27,7 @@ export function RoundsCompareChart({
   }));
 
   return (
-    <Card className="h-full">
+    <Card className="stage-card h-full">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
@@ -45,7 +45,7 @@ export function RoundsCompareChart({
               }}
             />
             <Legend />
-            <Bar name="Group, No Role" dataKey="noRole" fill="#8c9fbf" radius={[4, 4, 0, 0]} />
+            <Bar name="Group, No Role" dataKey="noRole" fill="var(--bronze)" radius={[4, 4, 0, 0]} />
             <Bar name="Group, Role" dataKey="role" fill="var(--accent)" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>

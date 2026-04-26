@@ -41,7 +41,7 @@ export default function TopicsPage() {
   }
 
   return (
-    <div className="grid gap-5">
+    <div className="page-enter grid gap-5">
       <section className="forum-hero">
         <div className="forum-hero-content">
           <div>
@@ -50,9 +50,12 @@ export default function TopicsPage() {
             </Badge>
             <h1 className="forum-title mt-4">Choose a Chamber</h1>
             <p className="forum-subtitle mt-4">
-              Each topic opens as a short card deck. You start with blind answers, reveal the case,
-              inspect one real debate, and then step back to the topic-wide data.
+              Each topic is a short session. Make an early call, uncover the prompt, watch one
+              debate, then step back to the full pattern.
             </p>
+          </div>
+          <div className="senate-seal" aria-hidden="true">
+            AS
           </div>
         </div>
       </section>

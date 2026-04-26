@@ -35,11 +35,11 @@ export function TopicFeedbackCheckpoint({
   const [saved, setSaved] = useState(false);
 
   return (
-    <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+    <div className="feedback-tablet rounded-md border border-[var(--line)] bg-[var(--surface)] p-4 pt-5">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <MessageSquareText className="h-4 w-4 text-[var(--accent-strong)]" />
-          <h3 className="font-serif text-lg font-semibold">Quick Check</h3>
+          <h3 className="font-serif text-lg font-semibold">Judgment Check</h3>
         </div>
         <div className="flex items-center gap-2">
           <Badge variant="subtle">{stage}</Badge>
@@ -51,7 +51,7 @@ export function TopicFeedbackCheckpoint({
 
       <div className="grid gap-4 lg:grid-cols-[1fr_1fr]">
         <div className="grid gap-3">
-          <Label>Your answer</Label>
+          <Label>Your call</Label>
           <div className="grid grid-cols-3 gap-2">
             {ANSWERS.map((value) => (
               <button
@@ -63,7 +63,7 @@ export function TopicFeedbackCheckpoint({
                   setSaved(false);
                 }}
                 className={cn(
-                  "h-10 rounded-md border border-[var(--line)] bg-[var(--surface)] text-sm font-semibold transition-colors",
+                  "choice-pill h-10 rounded-md border border-[var(--line)] bg-[var(--surface)] text-sm font-semibold transition-colors",
                   answer === value &&
                     "border-[var(--accent-strong)] bg-[var(--accent)] text-[var(--accent-foreground)]"
                 )}
@@ -74,7 +74,7 @@ export function TopicFeedbackCheckpoint({
           </div>
 
           <Label className="grid gap-2">
-            Confidence: {confidence}
+            Certainty: {confidence}
             <input
               type="range"
               min={1}
@@ -94,7 +94,7 @@ export function TopicFeedbackCheckpoint({
 
           {showEvidenceSlider ? (
             <Label className="grid gap-2">
-              Evidence helped: {evidenceUsefulness}
+              Evidence value: {evidenceUsefulness}
               <input
                 type="range"
                 min={1}
@@ -116,14 +116,14 @@ export function TopicFeedbackCheckpoint({
 
         <div className="grid gap-3">
           <Label className="grid gap-2">
-            Optional note
+            What changed?
             <Textarea
               value={comment}
               onChange={(event) => {
                 setComment(event.target.value);
                 setSaved(false);
               }}
-              placeholder="What made you shift, if anything?"
+              placeholder="What pushed you toward that answer?"
             />
           </Label>
           <Button
@@ -145,7 +145,7 @@ export function TopicFeedbackCheckpoint({
               setSaved(true);
             }}
           >
-            Save Answer
+            Save Judgment
           </Button>
         </div>
       </div>

@@ -37,16 +37,16 @@ export function BlindAnswerMatch({
   const selectedCard = cards.find((card) => card.slot === selectedSlot) ?? null;
 
   return (
-    <div className="grid gap-4 rounded-md border border-[var(--line)] bg-[var(--surface)] p-4 shadow-[0_1px_0_rgba(255,255,255,.65)_inset]">
+    <div className="blind-match grid gap-4 rounded-md border border-[var(--line)] bg-[var(--surface)] p-4 pt-5 shadow-[0_1px_0_rgba(255,255,255,.65)_inset]">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <div className="mb-2 flex items-center gap-2">
             <EyeOff className="h-4 w-4 text-[var(--accent-strong)]" />
-            <h3 className="font-serif text-lg font-semibold">Blind Answer Match</h3>
+            <h3 className="font-serif text-lg font-semibold">Choose the Argument</h3>
           </div>
           <p className="max-w-3xl text-sm text-[var(--muted-foreground)]">
-            The case is hidden for now. Read the four answers first, then pick the one you agree
-            with most.
+            The prompt is hidden. Pick the answer that feels best defended before you know the
+            scenario.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -55,57 +55,63 @@ export function BlindAnswerMatch({
         </div>
       </div>
 
-      <div className="grid gap-3 md:grid-cols-2">
-        {cards.map((card) => {
-          const selected = selectedSlot === card.slot;
-          return (
-            <button
-              key={card.slot}
-              type="button"
-              aria-pressed={selected}
-              onClick={() => {
-                setSelectedSlot(card.slot);
-                setSaved(false);
-              }}
-              className={cn(
-                "answer-tablet grid min-h-[172px] gap-3 rounded-md border border-[var(--line)] bg-[var(--card)] p-4 pt-5 text-left shadow-sm transition-all duration-150 hover:-translate-y-0.5 hover:border-[var(--bronze)] hover:bg-[var(--surface)]",
-                selected &&
-                  "border-[var(--accent-strong)] bg-[var(--accent-muted)] shadow-[0_0_0_2px_rgba(118,36,31,.12)]"
-              )}
-            >
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-md border border-[var(--line)] font-semibold">
-                    {card.slot}
-                  </span>
-                  <Badge variant={card.decision === "Yes" ? "accent" : "default"}>
-                    {card.decision}
-                  </Badge>
+      {cards.length > 0 ? (
+        <div className="grid gap-3 md:grid-cols-2">
+          {cards.map((card) => {
+            const selected = selectedSlot === card.slot;
+            return (
+              <button
+                key={card.slot}
+                type="button"
+                aria-pressed={selected}
+                onClick={() => {
+                  setSelectedSlot(card.slot);
+                  setSaved(false);
+                }}
+                className={cn(
+                  "answer-tablet grid min-h-[172px] gap-3 rounded-md border border-[var(--line)] bg-[var(--card)] p-4 pt-5 text-left shadow-sm transition-all duration-150 hover:-translate-y-0.5 hover:border-[var(--bronze)] hover:bg-[var(--surface)]",
+                  selected &&
+                    "border-[var(--accent-strong)] bg-[var(--accent-muted)] shadow-[0_0_0_2px_rgba(118,36,31,.12)]"
+                )}
+              >
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-md border border-[var(--line)] font-semibold">
+                      {card.slot}
+                    </span>
+                    <Badge variant={card.decision === "Yes" ? "accent" : "default"}>
+                      {card.decision}
+                    </Badge>
+                  </div>
+                  {card.confidence !== null ? (
+                    <span className="text-xs text-[var(--muted-foreground)]">
+                      {confidenceLabel(card.confidence)}
+                    </span>
+                  ) : null}
                 </div>
-                {card.confidence !== null ? (
-                  <span className="text-xs text-[var(--muted-foreground)]">
-                    {confidenceLabel(card.confidence)}
-                  </span>
+                <p className="text-sm leading-6 text-[var(--foreground)]">
+                  {card.reasoningPreview ?? "No written explanation was captured in this run."}
+                </p>
+                {showAttribution ? (
+                  <div className="flex flex-wrap items-center gap-2 border-t border-[var(--line-subtle)] pt-2 text-xs text-[var(--muted-foreground)]">
+                    <UserRoundSearch className="h-3.5 w-3.5" />
+                    <span>{card.agent}</span>
+                    {card.role ? <span>{card.role}</span> : null}
+                  </div>
                 ) : null}
-              </div>
-              <p className="text-sm leading-6 text-[var(--foreground)]">
-                {card.reasoningPreview ?? "No written explanation was captured in this run."}
-              </p>
-              {showAttribution ? (
-                <div className="flex flex-wrap items-center gap-2 border-t border-[var(--line-subtle)] pt-2 text-xs text-[var(--muted-foreground)]">
-                  <UserRoundSearch className="h-3.5 w-3.5" />
-                  <span>{card.agent}</span>
-                  {card.role ? <span>{card.role}</span> : null}
-                </div>
-              ) : null}
-            </button>
-          );
-        })}
-      </div>
+              </button>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="rounded-md border border-dashed border-[var(--line)] bg-[var(--card-muted)] p-4 text-sm text-[var(--muted-foreground)]">
+          No blind answer cards were captured for this sample.
+        </div>
+      )}
 
       <div className="grid gap-3 lg:grid-cols-[1fr_auto] lg:items-end">
         <Label className="grid gap-2">
-          Optional note
+          Why this one?
           <Textarea
             value={comment}
             onChange={(event) => {
@@ -116,8 +122,12 @@ export function BlindAnswerMatch({
           />
         </Label>
         <div className="flex flex-wrap items-center gap-2">
-          <Button type="button" variant="outline" onClick={() => setShowAttribution((value) => !value)}>
-            {showAttribution ? "Hide names" : "Show names"}
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => setShowAttribution((value) => !value)}
+          >
+            {showAttribution ? "Hide sources" : "Show sources"}
           </Button>
           <Button
             type="button"

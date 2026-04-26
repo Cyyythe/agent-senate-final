@@ -37,7 +37,7 @@ export function ConditionBarChart({
   });
 
   return (
-    <Card className="h-full">
+    <Card className="stage-card h-full">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>

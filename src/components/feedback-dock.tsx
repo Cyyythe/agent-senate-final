@@ -23,17 +23,17 @@ export function FeedbackDock() {
   return (
     <>
       <button
-        className="fixed bottom-5 right-5 z-50 flex h-12 items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--accent)] px-4 text-sm font-semibold text-[var(--accent-foreground)] shadow-lg"
+        className="feedback-button fixed z-50 flex h-12 items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--accent)] px-4 text-sm font-semibold text-[var(--accent-foreground)] shadow-[0_14px_30px_rgba(58,35,18,.22)] transition-transform duration-150 hover:-translate-y-0.5"
         onClick={() => setOpen((current) => !current)}
       >
         <MessageSquareText className="h-4 w-4" />
-        Feedback
+        <span className="feedback-label">Feedback</span>
       </button>
 
       {open ? (
-        <Card className="fixed bottom-20 right-5 z-50 w-[min(92vw,380px)] border-[var(--line)] bg-[var(--surface)]">
+        <Card className="feedback-panel stage-card fixed z-50 w-[min(92vw,380px)] border-[var(--line)] bg-[var(--surface)]">
           <CardHeader className="pb-3">
-            <CardTitle className="text-base">Quick Feedback (Local Only)</CardTitle>
+            <CardTitle className="text-base">Study Notes</CardTitle>
           </CardHeader>
           <CardContent className="grid gap-3 text-sm">
             <Label className="grid gap-1.5">
@@ -45,7 +45,7 @@ export function FeedbackDock() {
               />
             </Label>
             <Label className="grid gap-1.5">
-              Perception Gap (1-5)
+              Surprise (1-5)
               <Input
                 type="number"
                 min={1}
@@ -96,7 +96,7 @@ export function FeedbackDock() {
                   setComment("");
                 }}
               >
-                Submit
+                Save
               </Button>
               <Button variant="secondary" onClick={exportJson}>
                 <Download className="h-4 w-4" />

@@ -61,29 +61,37 @@ const STORY_STEPS = [
   { title: "Final Answer", shortTitle: "Final", kicker: "Where you land after the evidence" },
 ] as const;
 
+const ROMAN_STEPS = ["I", "II", "III", "IV", "V", "VI", "VII"] as const;
+
+function getRomanStep(index: number) {
+  return ROMAN_STEPS[index] ?? String(index + 1);
+}
+
 function StoryHeader({
-  step,
+  stepLabel,
   title,
   kicker,
 }: {
-  step: number;
+  stepLabel: string;
   title: string;
   kicker: string;
 }) {
   return (
-    <div className="mb-4">
-      <div className="mb-2 flex flex-wrap items-center gap-2">
-        <Badge variant="accent">Part {step}</Badge>
-        <span className="text-sm text-[var(--muted-foreground)]">{kicker}</span>
+    <div className="session-heading mb-5">
+      <div className="session-number" aria-hidden="true">
+        {stepLabel}
       </div>
-      <h2 className="text-2xl">{title}</h2>
+      <div>
+        <div className="session-kicker">Session {stepLabel} - {kicker}</div>
+        <h2 className="text-2xl">{title}</h2>
+      </div>
     </div>
   );
 }
 
 function MissingQuestionCard() {
   return (
-    <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4 text-sm text-[var(--muted-foreground)]">
+    <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4 text-sm text-[var(--muted-foreground)]">
       This sample is unavailable in the current topic data.
     </div>
   );
@@ -258,7 +266,7 @@ function EvidenceStrip({ question }: { question: QuestionItem }) {
         return (
           <div
             key={condition}
-            className="rounded-md border border-[var(--line-subtle)] bg-[var(--card-muted)] px-3 py-2 text-sm"
+            className="evidence-tile rounded-md border border-[var(--line-subtle)] bg-[var(--card-muted)] px-3 py-2 text-sm"
           >
             <div className="text-xs text-[var(--muted-foreground)]">{CONDITION_LABELS[condition]}</div>
             <div className="mt-1 font-semibold">{formatConditionOutcome(question, condition)}</div>
@@ -298,17 +306,23 @@ function SampleStep({
         cards={blindCards}
       />
 
-      <div className="rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-4 shadow-sm">
+      <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-4 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <div className="mb-1 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
               <Shuffle className="h-4 w-4" />
               Source run
             </div>
-            <p className="text-sm text-[var(--muted-foreground)]">
-              These blind answers came from{" "}
-              <strong>{CONDITION_LABELS[blindMatch.sourceCondition]}</strong>.
-            </p>
+            {blindMatch ? (
+              <p className="text-sm text-[var(--muted-foreground)]">
+                These answers came from{" "}
+                <strong>{CONDITION_LABELS[blindMatch.sourceCondition]}</strong>.
+              </p>
+            ) : (
+              <p className="text-sm text-[var(--muted-foreground)]">
+                Source setup metadata was not captured for this sample.
+              </p>
+            )}
           </div>
           <Button type="button" onClick={() => setRevealed((value) => !value)}>
             <Eye className="h-4 w-4" />
@@ -319,7 +333,7 @@ function SampleStep({
 
       {revealed ? (
         <>
-          <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+          <div className="reveal-panel stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
             <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
               <BookOpenText className="h-4 w-4" />
               Revealed case
@@ -334,7 +348,7 @@ function SampleStep({
             {blindCards.map((card) => (
               <div
                 key={card.slot}
-                className="rounded-md border border-[var(--line-subtle)] bg-[var(--surface)] p-3"
+                className="reveal-panel evidence-tile rounded-md border border-[var(--line-subtle)] bg-[var(--surface)] p-3"
               >
                 <div className="mb-2 flex items-center justify-between gap-2">
                   <Badge variant="subtle">Answer {card.slot}</Badge>
@@ -361,9 +375,9 @@ function SampleStep({
           />
         </>
       ) : (
-        <div className="rounded-md border border-dashed border-[var(--line)] bg-[var(--surface)] p-4 text-sm text-[var(--muted-foreground)]">
-          Reveal the case when you are ready to compare your pick against the actual prompt and the
-          four run setups.
+        <div className="reveal-panel rounded-md border border-dashed border-[var(--line)] bg-[var(--surface)] p-4 text-sm text-[var(--muted-foreground)]">
+          Reveal the case when you are ready to compare your pick against the prompt and the four
+          run setups.
         </div>
       )}
     </div>
@@ -373,7 +387,7 @@ function SampleStep({
 function DebateStep({ conversation }: { conversation: ConversationItem | undefined }) {
   if (!conversation) {
     return (
-      <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4 text-sm text-[var(--muted-foreground)]">
+      <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4 text-sm text-[var(--muted-foreground)]">
         No debate snapshot was available for this topic.
       </div>
     );
@@ -388,7 +402,7 @@ function DebateStep({ conversation }: { conversation: ConversationItem | undefin
   return (
     <div className="grid gap-4">
       <div className="grid gap-3 lg:grid-cols-[1.15fr_.85fr]">
-        <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+        <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
           <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
             <MessageSquareText className="h-4 w-4" />
             Debate prompt
@@ -400,7 +414,7 @@ function DebateStep({ conversation }: { conversation: ConversationItem | undefin
             <strong>{switchCount}</strong>.
           </p>
         </div>
-        <div className="rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-4">
+        <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-4">
           <div className="mb-3 text-sm font-semibold text-[var(--muted-foreground)]">
             Vote history
           </div>
@@ -423,7 +437,7 @@ function DebateStep({ conversation }: { conversation: ConversationItem | undefin
       </div>
 
       {leadRedirect ? (
-        <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+        <div className="reveal-panel stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
           <div className="mb-2 text-sm font-semibold text-[var(--muted-foreground)]">
             Moderator pressure
           </div>
@@ -440,7 +454,7 @@ function DebateStep({ conversation }: { conversation: ConversationItem | undefin
           return (
             <div
               key={agent}
-              className="rounded-md border border-[var(--line-subtle)] bg-[var(--surface)] p-4"
+              className="answer-tablet rounded-md border border-[var(--line-subtle)] bg-[var(--surface)] p-4 pt-5"
             >
               <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
                 <div>
@@ -550,7 +564,7 @@ export default function TopicDetailPage({
         return (
           <div className="grid gap-4 lg:grid-cols-[1.1fr_.9fr]">
             <div className="grid gap-4">
-              <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-5">
+              <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-5">
                 <div className="mb-3 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                   <Scale className="h-4 w-4" />
                   Main question
@@ -559,12 +573,12 @@ export default function TopicDetailPage({
                 <p className="mt-3 text-sm text-[var(--muted-foreground)]">{topic.definition}</p>
               </div>
               <div className="grid gap-3 sm:grid-cols-2">
-                <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+                <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
                   <div className="text-xs text-[var(--muted-foreground)]">A Yes answer favors</div>
                   <div className="mt-1 font-serif text-xl font-semibold">{yesSide}</div>
                   <p className="mt-2 text-sm text-[var(--muted-foreground)]">{topic.yesMeans}</p>
                 </div>
-                <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+                <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
                   <div className="text-xs text-[var(--muted-foreground)]">A No answer favors</div>
                   <div className="mt-1 font-serif text-xl font-semibold">{counterSide}</div>
                   <p className="mt-2 text-sm text-[var(--muted-foreground)]">
@@ -573,22 +587,22 @@ export default function TopicDetailPage({
                 </div>
               </div>
             </div>
-            <div className="rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-5">
+            <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-5">
               <div className="mb-3 text-sm font-semibold text-[var(--muted-foreground)]">
-                What happens next
+                Chamber route
               </div>
               <div className="grid gap-2">
                 {[
-                  "Read blind answers before you see the case.",
-                  "Reveal the case and compare the four run setups.",
-                  "Inspect one full debate, then step back to the topic-wide data.",
+                  "Choose the answer you align with before the prompt is visible.",
+                  "Reveal the prompt and check whether your pick still holds.",
+                  "Use one debate and the full data to decide where you land.",
                 ].map((line, index) => (
                   <div
                     key={line}
-                    className="flex items-center gap-3 rounded-md bg-[var(--surface)] px-3 py-2 text-sm"
+                    className="evidence-tile flex items-center gap-3 rounded-md border border-[var(--line-subtle)] bg-[var(--surface)] px-3 py-2 text-sm"
                   >
                     <span className="flex h-6 w-6 items-center justify-center rounded-md border border-[var(--line)] font-semibold">
-                      {index + 1}
+                      {getRomanStep(index)}
                     </span>
                     {line}
                   </div>
@@ -631,7 +645,7 @@ export default function TopicDetailPage({
           <div className="grid gap-4">
             {topicMetric && metricHighlights ? (
               <div className="grid gap-3 md:grid-cols-4">
-                <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+                <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
                   <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                     <BarChart3 className="h-4 w-4" />
                     Highest Yes rate
@@ -643,7 +657,7 @@ export default function TopicDetailPage({
                     {metricHighlights.strongest.label}
                   </p>
                 </div>
-                <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+                <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
                   <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                     <Shuffle className="h-4 w-4" />
                     Setup changed answer
@@ -655,7 +669,7 @@ export default function TopicDetailPage({
                     Prompts where the four setups did not land the same way.
                   </p>
                 </div>
-                <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+                <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
                   <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                     <UsersRound className="h-4 w-4" />
                     Debate switchers
@@ -667,7 +681,7 @@ export default function TopicDetailPage({
                     Prompts where at least one agent changed answer during a debate.
                   </p>
                 </div>
-                <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+                <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
                   <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                     <MessageSquareText className="h-4 w-4" />
                     Split rate
@@ -697,7 +711,7 @@ export default function TopicDetailPage({
         return (
           <div className="grid gap-4 lg:grid-cols-[1fr_1fr]">
             <div className="grid gap-3">
-              <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+              <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
                 <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                   <CheckCircle2 className="h-4 w-4" />
                   What you saw
@@ -707,7 +721,7 @@ export default function TopicDetailPage({
                   debate, and then checked the full topic pattern.
                 </p>
               </div>
-              <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+              <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
                 <div className="text-xs text-[var(--muted-foreground)]">Question count</div>
                 <div className="mt-1 font-serif text-xl font-semibold">{topic.questionCount} prompts</div>
                 <p className="mt-2 text-sm text-[var(--muted-foreground)]">
@@ -727,7 +741,7 @@ export default function TopicDetailPage({
   })();
 
   return (
-    <div className="grid gap-5">
+    <div className="page-enter grid gap-5">
       <section className="forum-hero">
         <div className="forum-hero-content">
           <div>
@@ -739,74 +753,83 @@ export default function TopicDetailPage({
             <p className="forum-subtitle mt-4">{narrativeQuestion}</p>
             <p className="mt-2 text-[var(--muted-foreground)]">{topic.definition}</p>
           </div>
-          <Button asChild variant="outline" className="forum-action">
-            <Link href="/topics">
-              <ArrowLeft className="h-4 w-4" />
-              Topics
-            </Link>
-          </Button>
+          <div className="forum-action grid justify-items-end gap-3">
+            <div className="senate-seal" aria-hidden="true">
+              AS
+            </div>
+            <Button asChild variant="outline">
+              <Link href="/topics">
+                <ArrowLeft className="h-4 w-4" />
+                Topics
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
-      <section className="grid gap-2 sm:grid-cols-3 xl:grid-cols-7">
-        {STORY_STEPS.map((step, index) => (
-          <button
-            key={step.shortTitle}
-            type="button"
-            onClick={() => setActiveStep(index)}
-            aria-current={activeStep === index ? "step" : undefined}
-            className={`chamber-step rounded-md border px-3 py-3 pl-4 text-left shadow-sm transition-all duration-150 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--bronze)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)] ${
-              activeStep === index
-                ? "border-[var(--accent-strong)] bg-[var(--accent)] text-[var(--accent-foreground)]"
-                : "border-[var(--line)] bg-[var(--surface)] hover:border-[var(--bronze)] hover:bg-[var(--card-muted)]"
-            }`}
-          >
-            <div
-              className={`text-xs ${
+      <div className="chamber-floor">
+        <section className="chamber-rail grid gap-2 sm:grid-cols-3 xl:grid-cols-7">
+          {STORY_STEPS.map((step, index) => (
+            <button
+              key={step.shortTitle}
+              type="button"
+              onClick={() => setActiveStep(index)}
+              aria-current={activeStep === index ? "step" : undefined}
+              className={`chamber-step rounded-md border px-3 py-3 pl-4 text-left shadow-sm transition-all duration-150 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--bronze)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)] ${
                 activeStep === index
-                  ? "text-[var(--accent-foreground)]"
-                  : "text-[var(--muted-foreground)]"
+                  ? "border-[var(--accent-strong)] bg-[var(--accent)] text-[var(--accent-foreground)]"
+                  : "border-[var(--line)] bg-[var(--surface)] hover:border-[var(--bronze)] hover:bg-[var(--card-muted)]"
               }`}
             >
-              {index + 1}
-            </div>
-            <div className="font-serif text-base font-semibold">{step.shortTitle}</div>
-          </button>
-        ))}
-      </section>
+              <div
+                className={`text-xs ${
+                  activeStep === index
+                    ? "text-[var(--accent-foreground)]"
+                    : "text-[var(--muted-foreground)]"
+                }`}
+              >
+                {getRomanStep(index)}
+              </div>
+              <div className="font-serif text-base font-semibold">{step.shortTitle}</div>
+            </button>
+          ))}
+        </section>
 
-      <section className="senate-panel p-5 md:p-6">
-        <StoryHeader
-          step={activeStep + 1}
-          title={STORY_STEPS[activeStep].title}
-          kicker={STORY_STEPS[activeStep].kicker}
-        />
-        <div className="min-h-[440px]">{activeContent}</div>
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--line-subtle)] pt-4">
-          <Button
-            type="button"
-            variant="outline"
-            disabled={isFirstStep}
-            onClick={() => setActiveStep((current) => Math.max(0, current - 1))}
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Previous
-          </Button>
-          <div className="text-sm text-[var(--muted-foreground)]">
-            {activeStep + 1} of {STORY_STEPS.length}
+        <section className="chamber-stage senate-panel p-5 md:p-6">
+          <StoryHeader
+            stepLabel={getRomanStep(activeStep)}
+            title={STORY_STEPS[activeStep].title}
+            kicker={STORY_STEPS[activeStep].kicker}
+          />
+          <div key={`${slug}-${activeStep}`} className="chamber-content min-h-[440px]">
+            {activeContent}
           </div>
-          <Button
-            type="button"
-            disabled={isLastStep}
-            onClick={() =>
-              setActiveStep((current) => Math.min(STORY_STEPS.length - 1, current + 1))
-            }
-          >
-            Next
-            <ArrowRight className="h-4 w-4" />
-          </Button>
-        </div>
-      </section>
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--line-subtle)] pt-4">
+            <Button
+              type="button"
+              variant="outline"
+              disabled={isFirstStep}
+              onClick={() => setActiveStep((current) => Math.max(0, current - 1))}
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Previous
+            </Button>
+            <div className="text-sm text-[var(--muted-foreground)]">
+              Session {getRomanStep(activeStep)} of {getRomanStep(STORY_STEPS.length - 1)}
+            </div>
+            <Button
+              type="button"
+              disabled={isLastStep}
+              onClick={() =>
+                setActiveStep((current) => Math.min(STORY_STEPS.length - 1, current + 1))
+              }
+            >
+              Next
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
