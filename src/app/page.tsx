@@ -9,16 +9,16 @@ import { StateBox } from "@/components/state-box";
 import { type TopicDescriptor } from "@/lib/types";
 
 const SEAT_OFFSETS = [
-  { y: 3.2, rotate: -7 },
-  { y: 1.4, rotate: -4 },
-  { y: 0.2, rotate: -1 },
-  { y: 1.4, rotate: 4 },
-  { y: 3.2, rotate: 7 },
-  { y: 2.4, rotate: -5 },
-  { y: 0.8, rotate: -2 },
-  { y: 0.4, rotate: 0 },
-  { y: 0.8, rotate: 2 },
-  { y: 2.4, rotate: 5 },
+  { y: 3.2 },
+  { y: 1.4 },
+  { y: 0.2 },
+  { y: 1.4 },
+  { y: 3.2 },
+  { y: 2.4 },
+  { y: 0.8 },
+  { y: 0.4 },
+  { y: 0.8 },
+  { y: 2.4 },
 ] as const;
 
 const ROMAN_NUMERALS = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
@@ -31,7 +31,6 @@ function getSeatStyle(index: number) {
   const offset = SEAT_OFFSETS[index % SEAT_OFFSETS.length];
   return {
     "--seat-y": `${offset.y}rem`,
-    "--seat-rotate": `${offset.rotate}deg`,
     "--seat-delay": `${index * 45}ms`,
   } as CSSProperties;
 }

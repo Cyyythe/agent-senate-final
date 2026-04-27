@@ -2,16 +2,60 @@
 
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { MessageSquareText } from "lucide-react";
+import { ChevronDown, ChevronUp, MessageSquareText, Scale } from "lucide-react";
 import { useFeedback } from "@/components/providers/feedback-provider";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { type AnswerValue } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 const ANSWERS: AnswerValue[] = ["Yes", "No", "Maybe"];
+const SCALE_VALUES = [1, 2, 3, 4, 5] as const;
+const CERTAINTY_LABELS = ["Tentative", "Leaning", "Open", "Firm", "Certain"] as const;
+const EVIDENCE_LABELS = ["None", "Light", "Some", "Strong", "Decisive"] as const;
+
+function ScaleSelector({
+  title,
+  value,
+  onChange,
+  labels,
+}: {
+  title: string;
+  value: number;
+  onChange: (next: number) => void;
+  labels: readonly string[];
+}) {
+  return (
+    <div className="grid gap-2">
+      <div className="flex items-center justify-between gap-3">
+        <div className="text-sm font-semibold">{title}</div>
+        <div className="text-xs text-[var(--muted-foreground)]">{labels[value - 1]}</div>
+      </div>
+      <div className="grid grid-cols-5 gap-2">
+        {SCALE_VALUES.map((level) => (
+          <button
+            key={level}
+            type="button"
+            aria-pressed={value === level}
+            onClick={() => onChange(level)}
+            className={cn(
+              "strength-chip rounded-md border border-[var(--line)] bg-[var(--surface)] px-2 py-2 text-sm font-semibold transition-colors",
+              value === level &&
+                "border-[var(--accent-strong)] bg-[var(--accent-muted)] text-[var(--accent-strong)]"
+            )}
+          >
+            {level}
+          </button>
+        ))}
+      </div>
+      <div className="flex justify-between text-[11px] text-[var(--muted-foreground)]">
+        <span>Low</span>
+        <span>High</span>
+      </div>
+    </div>
+  );
+}
 
 export function TopicFeedbackCheckpoint({
   topicSlug,
@@ -33,6 +77,7 @@ export function TopicFeedbackCheckpoint({
   const [evidenceUsefulness, setEvidenceUsefulness] = useState(3);
   const [comment, setComment] = useState("");
   const [saved, setSaved] = useState(false);
+  const [showNote, setShowNote] = useState(false);
 
   return (
     <div className="feedback-tablet rounded-md border border-[var(--line)] bg-[var(--surface)] p-4 pt-5">
@@ -47,11 +92,13 @@ export function TopicFeedbackCheckpoint({
         </div>
       </div>
 
-      <p className="mb-3 text-base">{prompt}</p>
+      <div className="story-scene mb-4 rounded-md border border-[var(--line-subtle)] bg-[var(--card)] p-4">
+        <div className="scene-brow mb-2">Your vote</div>
+        <p className="text-base leading-7">{prompt}</p>
+      </div>
 
-      <div className="grid gap-4 lg:grid-cols-[1fr_1fr]">
+      <div className="grid gap-4 xl:grid-cols-[1.1fr_.9fr]">
         <div className="grid gap-3">
-          <Label>Your call</Label>
           <div className="grid grid-cols-3 gap-2">
             {ANSWERS.map((value) => (
               <button
@@ -63,90 +110,112 @@ export function TopicFeedbackCheckpoint({
                   setSaved(false);
                 }}
                 className={cn(
-                  "choice-pill h-10 rounded-md border border-[var(--line)] bg-[var(--surface)] text-sm font-semibold transition-colors",
+                  "vote-button choice-pill min-h-[78px] rounded-md border border-[var(--line)] bg-[var(--surface)] px-3 py-3 text-left text-sm font-semibold transition-colors",
                   answer === value &&
                     "border-[var(--accent-strong)] bg-[var(--accent)] text-[var(--accent-foreground)]"
                 )}
               >
-                {value}
+                <div className="text-xs opacity-70">Vote</div>
+                <div className="mt-1 font-serif text-xl">{value}</div>
               </button>
             ))}
           </div>
 
-          <Label className="grid gap-2">
-            Certainty: {confidence}
-            <input
-              type="range"
-              min={1}
-              max={5}
-              value={confidence}
-              onChange={(event) => {
-                setConfidence(Number(event.target.value));
-                setSaved(false);
-              }}
-              className="w-full accent-[var(--accent)]"
-            />
-            <div className="flex justify-between text-xs text-[var(--muted-foreground)]">
-              <span>Low</span>
-              <span>High</span>
-            </div>
-          </Label>
+          <ScaleSelector
+            title="How certain does that feel?"
+            value={confidence}
+            labels={CERTAINTY_LABELS}
+            onChange={(next) => {
+              setConfidence(next);
+              setSaved(false);
+            }}
+          />
 
           {showEvidenceSlider ? (
-            <Label className="grid gap-2">
-              Evidence value: {evidenceUsefulness}
-              <input
-                type="range"
-                min={1}
-                max={5}
-                value={evidenceUsefulness}
-                onChange={(event) => {
-                  setEvidenceUsefulness(Number(event.target.value));
-                  setSaved(false);
-                }}
-                className="w-full accent-[var(--accent)]"
-              />
-              <div className="flex justify-between text-xs text-[var(--muted-foreground)]">
-                <span>Not much</span>
-                <span>A lot</span>
-              </div>
-            </Label>
+            <ScaleSelector
+              title="How much did the evidence move you?"
+              value={evidenceUsefulness}
+              labels={EVIDENCE_LABELS}
+              onChange={(next) => {
+                setEvidenceUsefulness(next);
+                setSaved(false);
+              }}
+            />
           ) : null}
         </div>
 
-        <div className="grid gap-3">
-          <Label className="grid gap-2">
-            What changed?
-            <Textarea
-              value={comment}
-              onChange={(event) => {
-                setComment(event.target.value);
-                setSaved(false);
+        <div className="verdict-summary stage-card rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-4">
+          <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
+            <Scale className="h-4 w-4" />
+            Current read
+          </div>
+          <div className="font-serif text-3xl">{answer ?? "Undecided"}</div>
+          <p className="mt-2 text-sm text-[var(--muted-foreground)]">
+            {answer
+              ? `Certainty ${confidence}/5.`
+              : "Pick the side that feels most justified after this stage."}
+          </p>
+          {showEvidenceSlider ? (
+            <p className="mt-1 text-sm text-[var(--muted-foreground)]">
+              Evidence impact {evidenceUsefulness}/5.
+            </p>
+          ) : null}
+
+          {showNote ? (
+            <div className="note-drawer mt-4 grid gap-2 border-t border-[var(--line-subtle)] pt-4">
+              <div className="text-sm font-semibold">Optional note</div>
+              <Textarea
+                value={comment}
+                onChange={(event) => {
+                  setComment(event.target.value);
+                  setSaved(false);
+                }}
+                placeholder="What pushed you toward that answer?"
+              />
+            </div>
+          ) : null}
+
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setShowNote((current) => !current)}
+            >
+              {showNote ? (
+                <>
+                  <ChevronUp className="h-4 w-4" />
+                  Hide note
+                </>
+              ) : (
+                <>
+                  <ChevronDown className="h-4 w-4" />
+                  Add note
+                </>
+              )}
+            </Button>
+            <Button
+              type="button"
+              disabled={!answer}
+              onClick={() => {
+                submit({
+                  pagePath: pathname,
+                  topicSlug,
+                  stage,
+                  questionId: questionId ?? null,
+                  userAnswer: answer,
+                  confidence,
+                  evidenceUsefulness: showEvidenceSlider ? evidenceUsefulness : undefined,
+                  perceptionGap: confidence,
+                  clarity: confidence,
+                  chartUsefulness: showEvidenceSlider ? evidenceUsefulness : 3,
+                  comment: comment.trim(),
+                });
+                setSaved(true);
               }}
-              placeholder="What pushed you toward that answer?"
-            />
-          </Label>
-          <Button
-            type="button"
-            onClick={() => {
-              submit({
-                pagePath: pathname,
-                topicSlug,
-                stage,
-                questionId: questionId ?? null,
-                userAnswer: answer,
-                confidence,
-                evidenceUsefulness: showEvidenceSlider ? evidenceUsefulness : undefined,
-                perceptionGap: confidence,
-                clarity: confidence,
-                chartUsefulness: showEvidenceSlider ? evidenceUsefulness : 3,
-                comment: comment.trim(),
-              });
-              setSaved(true);
-            }}
-          >
-            Save Judgment
-          </Button>
+            >
+              Record Vote
+            </Button>
+          </div>
         </div>
       </div>
     </div>

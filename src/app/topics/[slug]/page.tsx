@@ -105,10 +105,6 @@ function formatPercentFromRate(value: number) {
   return `${Math.round(value)}%`;
 }
 
-function formatRounds(rounds: number) {
-  return `${rounds} ${rounds === 1 ? "round" : "rounds"}`;
-}
-
 function formatConditionOutcome(question: QuestionItem, condition: ConditionKey) {
   const summary = question.conditionSummary[condition];
   if (summary.rawOutcome === "Stalemate") {
@@ -148,6 +144,17 @@ function getQuestionPatternSummary(question: QuestionItem) {
   }
 
   return "The setups leaned the same way overall, but not with the same vote pattern.";
+}
+
+function getQuestionContrast(question: QuestionItem) {
+  const plain = question.conditionSummary.single_no_role.outcome;
+  const debateRole = question.conditionSummary.debate_role.outcome;
+
+  if (plain === debateRole) {
+    return `From the plain single-agent run to the role-based debate, the answer stayed ${plain}.`;
+  }
+
+  return `The plain single-agent run said ${plain}, but the role-based debate ended ${debateRole}.`;
 }
 
 function countAnswerShifts(question: QuestionItem) {
@@ -258,6 +265,14 @@ function getMetricHighlights(metric: TopicMetric | undefined) {
   };
 }
 
+function getMetricNarrative(highlights: NonNullable<ReturnType<typeof getMetricHighlights>>) {
+  return `${highlights.strongest.label} produced the strongest yes-lean at ${formatPercent(
+    highlights.strongest.value
+  )}, while ${highlights.weakest.label} was lowest at ${formatPercent(
+    highlights.weakest.value
+  )}, a ${Math.round(highlights.spread * 100)} point spread.`;
+}
+
 function EvidenceStrip({ question }: { question: QuestionItem }) {
   return (
     <div className="grid gap-2 md:grid-cols-4">
@@ -298,6 +313,15 @@ function SampleStep({
 
   return (
     <div className="grid gap-4">
+      <div className="story-scene stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-5">
+        <div className="scene-brow">{label}</div>
+        <h3 className="mt-2 font-serif text-2xl">One sealed case, four visible answers.</h3>
+        <p className="mt-2 text-sm leading-7 text-[var(--muted-foreground)]">
+          Treat these like floor speeches. Pick the answer that earns your vote before you know the
+          actual case.
+        </p>
+      </div>
+
       <BlindAnswerMatch
         key={question.id}
         topicSlug={topicSlug}
@@ -306,12 +330,12 @@ function SampleStep({
         cards={blindCards}
       />
 
-      <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-4 shadow-sm">
+      <div className="reveal-gate stage-card rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-4 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <div className="mb-1 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
               <Shuffle className="h-4 w-4" />
-              Source run
+              Break the seal
             </div>
             {blindMatch ? (
               <p className="text-sm text-[var(--muted-foreground)]">
@@ -326,58 +350,76 @@ function SampleStep({
           </div>
           <Button type="button" onClick={() => setRevealed((value) => !value)}>
             <Eye className="h-4 w-4" />
-            {revealed ? "Hide Case" : "Reveal Case"}
+            {revealed ? "Seal the case" : "Reveal the case"}
           </Button>
         </div>
       </div>
 
       {revealed ? (
         <>
-          <div className="reveal-panel stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
-            <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
-              <BookOpenText className="h-4 w-4" />
-              Revealed case
-            </div>
-            <h3 className="font-serif text-xl font-semibold">{question.prompt}</h3>
-            <p className="mt-2 text-sm text-[var(--muted-foreground)]">
-              {getQuestionPatternSummary(question)}
-            </p>
-          </div>
-
-          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-            {blindCards.map((card) => (
-              <div
-                key={card.slot}
-                className="reveal-panel evidence-tile rounded-md border border-[var(--line-subtle)] bg-[var(--surface)] p-3"
-              >
-                <div className="mb-2 flex items-center justify-between gap-2">
-                  <Badge variant="subtle">Answer {card.slot}</Badge>
-                  <Badge variant={card.decision === "Yes" ? "accent" : "default"}>
-                    {card.decision}
-                  </Badge>
-                </div>
-                <div className="font-semibold">{card.agent}</div>
-                <div className="text-xs text-[var(--muted-foreground)]">
-                  {card.role ?? "No role assignment"}
-                </div>
+          <div className="grid gap-4 xl:grid-cols-[1.1fr_.9fr]">
+            <div className="reveal-panel sample-oracle stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-5">
+              <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
+                <BookOpenText className="h-4 w-4" />
+                Revealed case
               </div>
-            ))}
+              <h3 className="font-serif text-2xl font-semibold leading-snug">{question.prompt}</h3>
+            </div>
+
+            <div className="reveal-panel insight-banner stage-card rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-5">
+              <div className="scene-brow">What the reveal changes</div>
+              <p className="mt-2 text-xl leading-8">{getQuestionPatternSummary(question)}</p>
+              <p className="mt-3 text-sm leading-7 text-[var(--muted-foreground)]">
+                {getQuestionContrast(question)}
+              </p>
+            </div>
           </div>
 
-          <EvidenceStrip question={question} />
+          <div className="evidence-wall stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+            <div className="mb-3 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
+              <BookOpenText className="h-4 w-4" />
+              Who gave each answer
+            </div>
+            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+              {blindCards.map((card) => (
+                <div
+                  key={card.slot}
+                  className="reveal-panel evidence-tile rounded-md border border-[var(--line-subtle)] bg-[var(--surface)] p-3"
+                >
+                  <div className="mb-2 flex items-center justify-between gap-2">
+                    <Badge variant="subtle">Answer {card.slot}</Badge>
+                    <Badge variant={card.decision === "Yes" ? "accent" : "default"}>
+                      {card.decision}
+                    </Badge>
+                  </div>
+                  <div className="font-semibold">{card.agent}</div>
+                  <div className="text-xs text-[var(--muted-foreground)]">
+                    {card.role ?? "No role assignment"}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="evidence-wall stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+            <div className="mb-3 text-sm font-semibold text-[var(--muted-foreground)]">
+              How the four setups voted
+            </div>
+            <EvidenceStrip question={question} />
+          </div>
 
           <TopicFeedbackCheckpoint
             topicSlug={topicSlug}
             stage={`${label} revealed`}
-            prompt="Now that you can see the case, what is your answer?"
+            prompt="Now that the case is visible, where do you land?"
             questionId={question.id}
             showEvidenceSlider
           />
         </>
       ) : (
-        <div className="reveal-panel rounded-md border border-dashed border-[var(--line)] bg-[var(--surface)] p-4 text-sm text-[var(--muted-foreground)]">
-          Reveal the case when you are ready to compare your pick against the prompt and the four
-          run setups.
+        <div className="reveal-panel stage-card rounded-md border border-dashed border-[var(--line)] bg-[var(--surface)] p-4 text-sm text-[var(--muted-foreground)]">
+          The real prompt is still sealed. Reveal it when you want to compare your vote against the
+          actual case and the four run setups.
         </div>
       )}
     </div>
@@ -401,29 +443,44 @@ function DebateStep({ conversation }: { conversation: ConversationItem | undefin
 
   return (
     <div className="grid gap-4">
-      <div className="grid gap-3 lg:grid-cols-[1.15fr_.85fr]">
-        <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
-          <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
-            <MessageSquareText className="h-4 w-4" />
-            Debate prompt
+      <div className="debate-marquee stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-5">
+        <div className="scene-brow">Debate floor</div>
+        <div className="mt-2 grid gap-4 lg:grid-cols-[1.1fr_.9fr] lg:items-start">
+          <div>
+            <h3 className="font-serif text-2xl font-semibold leading-snug">{conversation.prompt}</h3>
+            <p className="mt-3 text-sm leading-7 text-[var(--muted-foreground)]">
+              This is one full group debate from the topic. Watch where the room settled, how long
+              it took, and whether anyone moved.
+            </p>
           </div>
-          <h3 className="font-serif text-xl font-semibold">{conversation.prompt}</h3>
-          <p className="mt-2 text-sm text-[var(--muted-foreground)]">
-            Final answer: <strong>{conversation.finalConsensus}</strong>. Length:{" "}
-            <strong>{formatRounds(conversation.roundsCompleted)}</strong>. Agents who switched:{" "}
-            <strong>{switchCount}</strong>.
-          </p>
+          <div className="grid gap-3 sm:grid-cols-3">
+            <div className="debate-stat rounded-md border border-[var(--line-subtle)] bg-[var(--card-muted)] p-3">
+              <div className="text-xs text-[var(--muted-foreground)]">Final answer</div>
+              <div className="mt-1 font-serif text-2xl">{conversation.finalConsensus}</div>
+            </div>
+            <div className="debate-stat rounded-md border border-[var(--line-subtle)] bg-[var(--card-muted)] p-3">
+              <div className="text-xs text-[var(--muted-foreground)]">Rounds</div>
+              <div className="mt-1 font-serif text-2xl">{conversation.roundsCompleted}</div>
+            </div>
+            <div className="debate-stat rounded-md border border-[var(--line-subtle)] bg-[var(--card-muted)] p-3">
+              <div className="text-xs text-[var(--muted-foreground)]">Changed minds</div>
+              <div className="mt-1 font-serif text-2xl">{switchCount}</div>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div className="grid gap-3 lg:grid-cols-[.8fr_1.2fr]">
         <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-4">
           <div className="mb-3 text-sm font-semibold text-[var(--muted-foreground)]">
             Vote history
           </div>
-          <div className="grid gap-2">
+          <div className="vote-history-track grid gap-2">
             {(conversation.voteHistory.length > 0 ? conversation.voteHistory : [{ round: 0, yes: 0, no: 0 }]).map(
               (point) => (
                 <div
                   key={point.round}
-                  className="flex items-center justify-between rounded-md bg-[var(--surface)] px-3 py-2 text-sm"
+                  className="history-chip flex items-center justify-between rounded-md bg-[var(--surface)] px-3 py-2 text-sm"
                 >
                   <span>Round {point.round}</span>
                   <span>
@@ -433,54 +490,54 @@ function DebateStep({ conversation }: { conversation: ConversationItem | undefin
               )
             )}
           </div>
-        </div>
-      </div>
 
-      {leadRedirect ? (
-        <div className="reveal-panel stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
-          <div className="mb-2 text-sm font-semibold text-[var(--muted-foreground)]">
-            Moderator pressure
+          <div className="mt-4 rounded-md border border-[var(--line-subtle)] bg-[var(--surface)] p-3">
+            <div className="text-xs text-[var(--muted-foreground)]">Read of the room</div>
+            <p className="mt-1 text-sm text-[var(--muted-foreground)]">
+              {leadRedirect
+                ? leadRedirect
+                : "No strong moderator push was captured in this debate."}
+            </p>
           </div>
-          <p className="text-sm">{leadRedirect}</p>
         </div>
-      ) : null}
 
-      <div className="grid gap-3 md:grid-cols-2">
-        {AGENT_ORDER.map((agent) => {
-          const initial = conversation.initialResponses[agent];
-          const final = conversation.finalState[agent];
-          const switched = initial.decision !== final.decision;
+        <div className="grid gap-3 md:grid-cols-2">
+          {AGENT_ORDER.map((agent) => {
+            const initial = conversation.initialResponses[agent];
+            const final = conversation.finalState[agent];
+            const switched = initial.decision !== final.decision;
 
-          return (
-            <div
-              key={agent}
-              className="answer-tablet rounded-md border border-[var(--line-subtle)] bg-[var(--surface)] p-4 pt-5"
-            >
-              <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-                <div>
-                  <div className="font-semibold">{agent}</div>
-                  <div className="text-xs text-[var(--muted-foreground)]">
-                    {initial.role ?? "No role assignment"}
+            return (
+              <div
+                key={agent}
+                className="answer-tablet rounded-md border border-[var(--line-subtle)] bg-[var(--surface)] p-4 pt-5"
+              >
+                <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <div className="font-semibold">{agent}</div>
+                    <div className="text-xs text-[var(--muted-foreground)]">
+                      {initial.role ?? "No role assignment"}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Badge variant={initial.decision === "Yes" ? "accent" : "default"}>
+                      Started {initial.decision}
+                    </Badge>
+                    <Badge variant={final.decision === "Yes" ? "accent" : "default"}>
+                      Ended {final.decision}
+                    </Badge>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Badge variant={initial.decision === "Yes" ? "accent" : "default"}>
-                    Started {initial.decision}
-                  </Badge>
-                  <Badge variant={final.decision === "Yes" ? "accent" : "default"}>
-                    Ended {final.decision}
-                  </Badge>
+                <p className="text-sm leading-6">
+                  {initial.reasoningPreview ?? "No written opening argument was captured."}
+                </p>
+                <div className="mt-3 text-xs text-[var(--muted-foreground)]">
+                  {switched ? "Changed position during the debate." : "Held the same position."}
                 </div>
               </div>
-              <p className="text-sm leading-6">
-                {initial.reasoningPreview ?? "No written opening argument was captured."}
-              </p>
-              <div className="mt-3 text-xs text-[var(--muted-foreground)]">
-                {switched ? "Changed position during the debate." : "Held the same position."}
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
@@ -564,13 +621,13 @@ export default function TopicDetailPage({
         return (
           <div className="grid gap-4 lg:grid-cols-[1.1fr_.9fr]">
             <div className="grid gap-4">
-              <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-5">
-                <div className="mb-3 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
+              <div className="story-scene stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-5">
+                <div className="scene-brow mb-3 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                   <Scale className="h-4 w-4" />
                   Main question
                 </div>
-                <p className="text-2xl leading-snug">{narrativeQuestion}</p>
-                <p className="mt-3 text-sm text-[var(--muted-foreground)]">{topic.definition}</p>
+                <p className="text-3xl leading-snug">{narrativeQuestion}</p>
+                <p className="mt-3 text-sm leading-7 text-[var(--muted-foreground)]">{topic.definition}</p>
               </div>
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
@@ -587,10 +644,11 @@ export default function TopicDetailPage({
                 </div>
               </div>
             </div>
-            <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-5">
-              <div className="mb-3 text-sm font-semibold text-[var(--muted-foreground)]">
-                Chamber route
-              </div>
+            <div className="insight-banner stage-card rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-5">
+              <div className="scene-brow">How this session works</div>
+              <p className="mt-2 text-xl leading-8">
+                Start with instinct, then pressure-test it against real model reasoning.
+              </p>
               <div className="grid gap-2">
                 {[
                   "Choose the answer you align with before the prompt is visible.",
@@ -644,7 +702,19 @@ export default function TopicDetailPage({
         return (
           <div className="grid gap-4">
             {topicMetric && metricHighlights ? (
-              <div className="grid gap-3 md:grid-cols-4">
+              <>
+                <div className="insight-banner stage-card rounded-md border border-[var(--line)] bg-[var(--card-muted)] p-5">
+                  <div className="scene-brow">Whole topic signal</div>
+                  <p className="mt-2 text-xl leading-8">
+                    {getMetricNarrative(metricHighlights)}
+                  </p>
+                  <p className="mt-3 text-sm leading-7 text-[var(--muted-foreground)]">
+                    {formatPercentFromRate(topicMetric.conditionDisagreementRate)} of prompts changed
+                    answer across setups, and {formatPercentFromRate(topicMetric.stalemateRate)} hit
+                    at least one 2-2 split.
+                  </p>
+                </div>
+                <div className="grid gap-3 md:grid-cols-4">
                 <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
                   <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                     <BarChart3 className="h-4 w-4" />
@@ -693,7 +763,8 @@ export default function TopicDetailPage({
                     Prompts where at least one setup ended in a 2-2 split.
                   </p>
                 </div>
-              </div>
+                </div>
+              </>
             ) : null}
             <div className="grid gap-4 xl:grid-cols-2">
               <ConditionBarChart metrics={topicMetrics} title="Yes Rate by Setup" />
@@ -702,7 +773,7 @@ export default function TopicDetailPage({
             <TopicFeedbackCheckpoint
               topicSlug={topic.slug}
               stage="Whole topic"
-              prompt="After the topic-wide data, which answer feels best supported?"
+              prompt="After the topic-wide evidence, which side feels best supported?"
               showEvidenceSlider
             />
           </div>
@@ -711,12 +782,16 @@ export default function TopicDetailPage({
         return (
           <div className="grid gap-4 lg:grid-cols-[1fr_1fr]">
             <div className="grid gap-3">
-              <div className="stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
-                <div className="mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
+              <div className="final-floor stage-card rounded-md border border-[var(--line)] bg-[var(--surface)] p-5">
+                <div className="scene-brow mb-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                   <CheckCircle2 className="h-4 w-4" />
-                  What you saw
+                  Closing vote
                 </div>
-                <p className="text-sm text-[var(--muted-foreground)]">
+                <p className="text-xl leading-8">
+                  You have seen blind arguments, the hidden cases behind them, one full debate, and
+                  the wider topic pattern.
+                </p>
+                <p className="mt-3 text-sm leading-7 text-[var(--muted-foreground)]">
                   You matched yourself to blind answers, revealed three cases, inspected one real
                   debate, and then checked the full topic pattern.
                 </p>
@@ -725,14 +800,14 @@ export default function TopicDetailPage({
                 <div className="text-xs text-[var(--muted-foreground)]">Question count</div>
                 <div className="mt-1 font-serif text-xl font-semibold">{topic.questionCount} prompts</div>
                 <p className="mt-2 text-sm text-[var(--muted-foreground)]">
-                  This final answer should reflect both the sample cases and the broader run data.
+                  This final vote should reflect both the sample cases and the broader run data.
                 </p>
               </div>
             </div>
             <TopicFeedbackCheckpoint
               topicSlug={topic.slug}
               stage="Final answer"
-              prompt="After this topic, where do you land?"
+              prompt="After the full session, where do you land?"
               showEvidenceSlider
             />
           </div>
